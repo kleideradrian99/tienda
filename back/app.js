@@ -13,7 +13,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/tienda', (err, res) => {
         console.log(err);
     } else {
         app.listen(port, function() {
-            console.log('Servidor Corriendo en el puerto ' + port);
+            console.log('Servidor Corriendo en el puerto: ' + port);
         });
     }
 })
