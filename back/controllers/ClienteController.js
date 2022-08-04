@@ -61,7 +61,14 @@ const login_cliente = async function(req, res) {
     }
 }
 
+const listar_cliente_filtro_admin = async function(req, res) {
+    //Verificar que tiene los permisos suficientes
+    //Creanis decodificacion del token
+    let reg = await Cliente.find();
+    res.status(200).send({ data: reg });
+}
 module.exports = {
     registro_cliente,
-    login_cliente
+    login_cliente,
+    listar_cliente_filtro_admin
 }
