@@ -9,6 +9,7 @@ import { routing } from './app.routing';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { LoginComponent } from './components/login/login.component';
+import { IndexClienteComponent } from './components/clientes/index-cliente/index-cliente.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { LoginComponent } from './components/login/login.component';
     InicioComponent,
     SidebarComponent,
     LoginComponent,
+    IndexClienteComponent,
   ],
   imports: [
     BrowserModule,
