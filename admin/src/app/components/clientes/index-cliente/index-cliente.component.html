@@ -16,16 +16,14 @@
     <div class="card-header">
         <form class="form-inline pt-2">
             <label class="sr-only" for="inline-form-input-name">Apellidos</label>
-            <input class="form-control mb-3 mr-sm-4" type="text" id="inline-form-input-name" placeholder="John Doe">
+            <input class="form-control mb-3 mr-sm-4" (keyup)="filtro('apellidos')" name="filtro_apellidos" [(ngModel)]="filtro_apellidos" type="text" id="inline-form-input-name" placeholder="Last Name Client">
             <label class="sr-only" for="inline-form-input-username">Correo</label>
             <div class="input-group mb-3 mr-sm-4">
                 <div class="input-group-prepend">
                     <div class="input-group-text">@</div>
                 </div>
-                <input class="form-control" type="text" id="inline-form-input-username" placeholder="Username">
+                <input class="form-control" type="text" (keyup)="filtro('email')" name="filtro_email" [(ngModel)]="filtro_email" placeholder="E-mail">
             </div>
-
-            <button class="btn btn-primary mb-3" type="submit">Buscar cliente</button>
         </form>
     </div>
     <div class="card-body">
@@ -40,7 +38,7 @@
                         <th>Options</th>
                     </tr>
                 </thead>
-                <tbody *ngFor="let item of clientes, let indice = index">
+                <tbody *ngFor="let item of clientes| slice:(page-1)*pageSize : (page-1)* pageSize + pageSize, let indice = index">
                     <tr>
                         <td>{{indice+1}}</td>
                         <td>{{item.nombres}}</td>
@@ -63,36 +61,6 @@
         </div>
     </div>
     <div class="card-footer">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a href="#" class="page-link">Prev</a>
-                </li>
-                <li class="page-item d-sm-none">
-                    <span class="page-link page-link-static">2 / 5</span>
-                </li>
-                <li class="page-item d-none d-sm-block">
-                    <a href="#" class="page-link">1</a>
-                </li>
-                <li class="page-item active d-none d-sm-block" aria-current="page">
-                    <span class="page-link">
-                      2
-                      <span class="sr-only">(current)</span>
-                    </span>
-                </li>
-                <li class="page-item d-none d-sm-block">
-                    <a href="#" class="page-link">3</a>
-                </li>
-                <li class="page-item d-none d-sm-block">
-                    <a href="#" class="page-link">4</a>
-                </li>
-                <li class="page-item d-none d-sm-block">
-                    <a href="#" class="page-link">5</a>
-                </li>
-                <li class="page-item">
-                    <a href="#" class="page-link">Next</a>
-                </li>
-            </ul>
-        </nav>
+        <ngb-pagination [pageSize]="pageSize" [collectionSize]="clientes.length" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
     </div>
 </div>

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +10,10 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { LoginComponent } from './components/login/login.component';
 import { IndexClienteComponent } from './components/clientes/index-cliente/index-cliente.component';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+
+//Kleidercito el mas pato de todo enciso y de colombia y del mundo y del universo
+
 
 @NgModule({
   declarations: [
@@ -24,7 +28,10 @@ import { IndexClienteComponent } from './components/clientes/index-cliente/index
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    routing
+    routing,
+
+
+    NgbPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
