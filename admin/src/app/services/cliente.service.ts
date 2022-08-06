@@ -14,8 +14,8 @@ export class ClienteService {
     this.url = global.url;
   }
 
-  listar_cliente_filtro_admin(_tipo: string | null, _filtro: string | null): Observable<any> {
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+  listar_cliente_filtro_admin(_tipo: any, _filtro: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-type': 'application/json', 'Authorization': token });
     return this._http.get(this.url + 'listar_cliente_filtro_admin/' + _tipo + '/' + _filtro, { headers: headers });
   }
 
