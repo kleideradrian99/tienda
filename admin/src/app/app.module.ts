@@ -11,6 +11,8 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { LoginComponent } from './components/login/login.component';
 import { IndexClienteComponent } from './components/clientes/index-cliente/index-cliente.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { EditClienteComponent } from './components/clientes/edit-cliente/edit-cliente.component';
+import { CreateClienteComponent } from './components/clientes/create-cliente/create-cliente.component';
 
 //Kleidercito el mas pato de todo enciso y de colombia y del mundo y del universo
 
@@ -22,6 +24,8 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
     SidebarComponent,
     LoginComponent,
     IndexClienteComponent,
+    EditClienteComponent,
+    CreateClienteComponent,
   ],
   imports: [
     BrowserModule,

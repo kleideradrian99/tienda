@@ -16,7 +16,7 @@ export class IndexClienteComponent implements OnInit {
 
   //PAGINACION
   public page = 1;
-  public pageSize = 2;
+  public pageSize = 5;
 
   constructor(private _clienteService: ClienteService, private _adminService: AdminService) {
     this.token = this._adminService.getToken();
