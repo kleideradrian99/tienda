@@ -5,7 +5,7 @@ var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../helpers/jwt');
 const { request } = require('express');
 
-const registro_cliente = async function(req, res) {
+const registro_cliente = async function (req, res) {
 
     var data = req.body;
     var clientes_arr = [];
@@ -17,7 +17,7 @@ const registro_cliente = async function(req, res) {
 
 
         if (data.password) {
-            bcrypt.hash(data.password, null, null, async function(err, hash) {
+            bcrypt.hash(data.password, null, null, async function (err, hash) {
                 if (hash) {
                     data.password = hash;
                     var reg = await Cliente.create(data);
@@ -37,7 +37,7 @@ const registro_cliente = async function(req, res) {
 
 }
 
-const login_cliente = async function(req, res) {
+const login_cliente = async function (req, res) {
     var data = req.body;
     var cliente_arr = [];
 
@@ -49,7 +49,7 @@ const login_cliente = async function(req, res) {
         //LOGIN
         let user = cliente_arr[0];
 
-        bcrypt.compare(data.password, user.password, async function(error, check) {
+        bcrypt.compare(data.password, user.password, async function (error, check) {
             if (check) {
                 res.status(200).send({
                     data: user,
@@ -62,7 +62,7 @@ const login_cliente = async function(req, res) {
     }
 }
 
-const listar_cliente_filtro_admin = async function(req, res) {
+const listar_cliente_filtro_admin = async function (req, res) {
     //Verificar que tiene los permisos suficientes
     if (req.user) {
         if (req.user.role == 'admin') {
@@ -91,13 +91,13 @@ const listar_cliente_filtro_admin = async function(req, res) {
 
 }
 
-const registro_cliente_admin = async function(req, res) {
+const registro_cliente_admin = async function (req, res) {
     if (req.user) {
         if (req.user.role == 'admin') {
             var data = req.body;
 
             //Contraseña por defecto
-            bcrypt.hash('123456', null, null, async function(err, hash) {
+            bcrypt.hash('123456', null, null, async function (err, hash) {
                 if (hash) {
                     data.password = hash;
                     let reg = await Cliente.create(data);
@@ -106,9 +106,58 @@ const registro_cliente_admin = async function(req, res) {
                     res.status(200).send({ message: 'Hubo un error en el servidor', data: undefined });
                 }
             })
-
-
+        } else {
+            res.status(500).send({ message: 'NoAccess' });
         }
+    } else {
+        res.status(500).send({ message: 'NoAccess' });
+    }
+}
+
+const obtener_cliente_admin = async function (req, res) {
+    if (req.user) {
+        if (req.user.role == 'admin') {
+
+            var id = req.params['id'];
+
+            try {
+                var reg = await Cliente.findById({ _id: id });
+                res.status(200).send({ data: reg });
+            } catch (error) {
+                res.status(200).send({ data: undefined });
+            }
+
+        } else {
+            res.status(500).send({ message: 'NoAccess' });
+        }
+    } else {
+        res.status(500).send({ message: 'NoAccess' });
+    }
+}
+
+const actualizar_cliente_admin = async function (req, res) {
+    if (req.user) {
+        if (req.user.role == 'admin') {
+
+            var id = req.params['id'];
+            var data = req.body;
+
+            var reg = await Cliente.findByIdAndUpdate({ _id: id }, {
+                nombres: data.nombres,
+                apellidos: data.apellidos,
+                email: data.email,
+                telefono: data.telefono,
+                genero: data.genero,
+                f_nacimiento: data.f_nacimiento,
+                dni: data.dni
+            })
+            res.status(200).send({ data: reg });
+
+        } else {
+            res.status(500).send({ message: 'NoAccess' });
+        }
+    } else {
+        res.status(500).send({ message: 'NoAccess' });
     }
 }
 
@@ -116,5 +165,7 @@ module.exports = {
     registro_cliente,
     login_cliente,
     listar_cliente_filtro_admin,
-    registro_cliente_admin
+    registro_cliente_admin,
+    obtener_cliente_admin,
+    actualizar_cliente_admin
 }
