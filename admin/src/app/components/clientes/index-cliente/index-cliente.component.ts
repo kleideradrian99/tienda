@@ -93,4 +93,9 @@ export class IndexClienteComponent implements OnInit {
       }
     )
   }
+  cerrarModal(id: any) {
+    $('#delete-' + id).modal('hide');
+    $('.modal-backdrop').removeClass('show');
+    this.init_data();
+  }
 }
