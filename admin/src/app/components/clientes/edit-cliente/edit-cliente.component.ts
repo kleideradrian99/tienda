@@ -16,13 +16,15 @@ export class EditClienteComponent implements OnInit {
   public cliente: any = {};
   public id: any;
   public token;
+  public load_btn = false;
+  public load_data = true;
 
   constructor(
     private _route: ActivatedRoute,
     private _clienteService: ClienteService,
     private _adminService: AdminService,
     private _Router: Router
-    ) {
+  ) {
     this.token = this._adminService.getToken();
   }
 
@@ -35,8 +37,13 @@ export class EditClienteComponent implements OnInit {
           response => {
             if (response.data == undefined) {
               this.cliente = undefined;
+              this.load_data = false;
             } else {
               this.cliente = response.data;
+              setTimeout(() => {
+                this.load_data = false;
+              }, 1000);
+
             }
           }, error => {
             console.log(error);
@@ -49,6 +56,7 @@ export class EditClienteComponent implements OnInit {
 
   actualizar(updateForm: any) {
     if (updateForm.valid) {
+      this.load_btn = true;
       this._clienteService.actualizar_cliente_admin(this.id, this.cliente, this.token).subscribe(
         response => {
           iziToast.show({
@@ -60,6 +68,7 @@ export class EditClienteComponent implements OnInit {
             position: 'topRight',
             message: 'Se Actualizo Correctamente el nuevo cliente'
           });
+          this.load_btn = false;
           this._Router.navigate(['/panel/clientes']);
         }, error => {
           console.log(error);

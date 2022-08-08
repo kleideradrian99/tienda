@@ -18,6 +18,7 @@ export class CreateClienteComponent implements OnInit {
   };
 
   public token;
+  public load_btn = false;
 
   constructor(private _clienteService: ClienteService, private _adminService: AdminService, private _Router: Router) {
     this.token = this._adminService.getToken();
@@ -29,7 +30,8 @@ export class CreateClienteComponent implements OnInit {
 
   registro(registroForm: { valid: any; }) {
     if (registroForm.valid) {
-      console.log(this.cliente);
+      // console.log(this.cliente);
+      this.load_btn = true;
       this._clienteService.registro_cliente_admin(this.token, this.cliente).subscribe(
         response => {
           iziToast.show({
@@ -51,6 +53,7 @@ export class CreateClienteComponent implements OnInit {
             telefono: '',
             email: ''
           }
+          this.load_btn = false;
           this._Router.navigate(['/panel/clientes']);
         }, error => {
           console.log(error);
