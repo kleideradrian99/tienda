@@ -13,8 +13,8 @@ import { IndexClienteComponent } from './components/clientes/index-cliente/index
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { EditClienteComponent } from './components/clientes/edit-cliente/edit-cliente.component';
 import { CreateClienteComponent } from './components/clientes/create-cliente/create-cliente.component';
+import { CreateProductoComponent } from './components/productos/create-producto/create-producto.component';
 
-//Kleidercito el mas pato de todo enciso y de colombia y del mundo y del universo
 
 
 @NgModule({
@@ -26,6 +26,7 @@ import { CreateClienteComponent } from './components/clientes/create-cliente/cre
     IndexClienteComponent,
     EditClienteComponent,
     CreateClienteComponent,
+    CreateProductoComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,9 +34,10 @@ import { CreateClienteComponent } from './components/clientes/create-cliente/cre
     FormsModule,
     HttpClientModule,
     routing,
-
-
-    NgbPaginationModule
+    NgbPaginationModule,
+    // NgxTinymceModule.forRoot({
+    //   baseURL:'../../../assets/tinymce/'
+    // })
   ],
   providers: [],
   bootstrap: [AppComponent]
