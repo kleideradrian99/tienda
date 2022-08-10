@@ -35,6 +35,7 @@ import { CreateProductoComponent } from './components/productos/create-producto/
     HttpClientModule,
     routing,
     NgbPaginationModule,
+    
     // NgxTinymceModule.forRoot({
     //   baseURL:'../../../assets/tinymce/'
     // })

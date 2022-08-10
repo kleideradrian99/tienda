@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminService } from 'src/app/services/admin.service';
+import { ProductoService } from 'src/app/services/producto.service';
 
 declare var iziToast: any;
 declare var jQuery: any;
@@ -14,14 +16,31 @@ export class CreateProductoComponent implements OnInit {
   public producto: any = [];
   public file: File | undefined;
   public imgSelect: any | ArrayBuffer = 'assets/img/01.jpg';
+  public token;
 
-  constructor() { }
+
+  constructor(
+    private _productoService: ProductoService,
+    private _adminService: AdminService
+  ) {
+    this.token = this._adminService.getToken();
+  }
 
   ngOnInit(): void {
   }
 
   registro(registroForm: any) {
     if (registroForm.valid) {
+      console.log(this.producto);
+      console.log(this.file);
+
+      this._productoService.registro_producto_admin(this.token, this.producto, this.file).subscribe(
+        response => {
+          console.log(response);
+        }, error => {
+          console.log(error);
+        }
+      )
 
     } else {
       iziToast.show({
@@ -88,9 +107,6 @@ export class CreateProductoComponent implements OnInit {
     // this.imgSelect = 'assets/img/01.jpg';
     //   this.file = undefined;
     // }
-
-    console.log(this.file);
-
   }
 
 }
