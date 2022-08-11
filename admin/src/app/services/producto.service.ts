@@ -35,4 +35,30 @@ export class ProductoService {
     return this._http.get(this.url + 'listar_producto_admin/' + _filtro, { headers: headers });
   }
 
+  obtener_producto_admin(id: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-type': 'application/json', 'Authorization': token });
+    return this._http.get(this.url + 'obtener_producto_admin/' + id, { headers: headers });
+  }
+
+  actualizar_producto_admin(token: any, data: any, id: any): Observable<any> {
+    if (data.portada) {
+      let headers = new HttpHeaders({ 'Authorization': token });
+
+      const fb = new FormData();
+      fb.append('titulo', data.titulo);
+      fb.append('stock', data.stock);
+      fb.append('precio', data.precio);
+      fb.append('categoria', data.categoria);
+      fb.append('descripcion', data.descripcion);
+      fb.append('contenido', data.contenido);
+      fb.append('portada', data.portada);
+
+      return this._http.put(this.url + 'actualizar_producto_admin/' + id, fb, { headers: headers });
+    } else {
+      let headers = new HttpHeaders({ 'Content-type': 'application/json', 'Authorization': token });
+      return this._http.put(this.url + 'actualizar_producto_admin/' + id, data, { headers: headers });
+
+    }
+  }
+
 }

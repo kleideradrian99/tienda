@@ -15,6 +15,7 @@ import { EditClienteComponent } from './components/clientes/edit-cliente/edit-cl
 import { CreateClienteComponent } from './components/clientes/create-cliente/create-cliente.component';
 import { CreateProductoComponent } from './components/productos/create-producto/create-producto.component';
 import { IndexProductosComponent } from './components/productos/index-productos/index-productos.component';
+import { UpdateProductoComponent } from './components/productos/update-producto/update-producto.component';
 
 
 
@@ -29,6 +30,7 @@ import { IndexProductosComponent } from './components/productos/index-productos/
     CreateClienteComponent,
     CreateProductoComponent,
     IndexProductosComponent,
+    UpdateProductoComponent,
   ],
   imports: [
     BrowserModule,
