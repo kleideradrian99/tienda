@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AdminService } from 'src/app/services/admin.service';
 import { ProductoService } from 'src/app/services/producto.service';
 
@@ -17,11 +18,13 @@ export class CreateProductoComponent implements OnInit {
   public file: File | undefined;
   public imgSelect: any | ArrayBuffer = 'assets/img/01.jpg';
   public token;
+  public load_btn = false;
 
 
   constructor(
     private _productoService: ProductoService,
-    private _adminService: AdminService
+    private _adminService: AdminService,
+    private _router: Router
   ) {
     this.token = this._adminService.getToken();
   }
@@ -31,14 +34,26 @@ export class CreateProductoComponent implements OnInit {
 
   registro(registroForm: any) {
     if (registroForm.valid) {
-      console.log(this.producto);
-      console.log(this.file);
-
+      // console.log(this.producto);
+      // console.log(this.file);
+      this.load_btn = true;
       this._productoService.registro_producto_admin(this.token, this.producto, this.file).subscribe(
         response => {
-          console.log(response);
+          iziToast.show({
+            title: 'Success',
+            titleColor: '#141514',
+            messageColor: '#000',
+            backgroundColor: '#B2FFB8',
+            class: 'text-success',
+            position: 'topRight',
+            message: 'Se registro Correctamente el nuevo producto'
+          });
+          this._router.navigate(['/panel/productos']);
+          this.load_btn = false;
+
         }, error => {
           console.log(error);
+          this.load_btn = false;
         }
       )
 
@@ -51,6 +66,10 @@ export class CreateProductoComponent implements OnInit {
         position: 'topRight',
         message: 'Los datos del formulario no son validos'
       });
+      this.load_btn = true;
+      $('#input-portada').text('Seleccionar imagen');
+      this.imgSelect = 'assets/img/01.jpg'; 
+      this.file = undefined;
     }
   }
 
