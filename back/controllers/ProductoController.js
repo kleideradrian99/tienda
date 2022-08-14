@@ -100,13 +100,13 @@ const actualizar_producto_admin = async function (req, res) {
 
                 //Eliminar imagen anterior
                 fs.stat('./uploads/productos/' + reg.portada, function (err) {
-                   if (!err) {
-                    fs.unlink('./uploads/productos/'+reg.portada,(error)=>{
-                        if(error) throw error;
-                    });
-                   } else {
-                    
-                   }
+                    if (!err) {
+                        fs.unlink('./uploads/productos/' + reg.portada, (error) => {
+                            if (error) throw error;
+                        });
+                    } else {
+
+                    }
                 })
 
 
@@ -133,10 +133,28 @@ const actualizar_producto_admin = async function (req, res) {
     }
 }
 
+const eliminar_producto_admin = async function (req, res) {
+    if (req.user) {
+        if (req.user.role == 'admin') {
+
+            var id = req.params['id'];
+
+            let reg = await producto.findByIdAndRemove({ _id: id });
+            res.status(200).send({ data: reg });
+
+        } else {
+            res.status(500).send({ message: 'NoAccess' });
+        }
+    } else {
+        res.status(500).send({ message: 'NoAccess' });
+    }
+}
+
 module.exports = {
     registro_producto_admin,
     listar_producto_admin,
     obtener_portada,
     obtener_producto_admin,
-    actualizar_producto_admin
+    actualizar_producto_admin,
+    eliminar_producto_admin
 }
