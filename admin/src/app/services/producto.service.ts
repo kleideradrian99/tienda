@@ -78,4 +78,9 @@ export class ProductoService {
     return this._http.delete(this.url + 'eliminar_inventario_admin/' + id, { headers: headers });
   }
 
+  registro_inventario_producto_admin(data: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-type': 'application/json', 'Authorization': token });
+    return this._http.post(this.url + 'registro_inventario_producto_admin/', data, { headers: headers });
+  }
+
 }

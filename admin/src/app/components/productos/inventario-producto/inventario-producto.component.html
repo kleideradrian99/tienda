@@ -28,7 +28,27 @@
     </div>
     <div class="card-body">
         <div class="row">
-
+            <!-- Form -->
+            <div class="col-12">
+                <!-- Forms validation: status text -->
+                <form #inventarioForm="ngForm" (ngSubmit)="registro_inventario(inventarioForm)" class="needs-validation"
+                    novalidate>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="validationCustom01" class="form-label">Cantidad</label>
+                            <input class="form-control" type="number" id="validationCustom01" name="cantidad"
+                                placeholder="cantidad" required [(ngModel)]="inventario.cantidad">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="validationCustom02" class="form-label">Proveedor</label>
+                            <input class="form-control" type="text" id="validationCustom02" name="proveedor"
+                                placeholder="Proveedor" required [(ngModel)]="inventario.proveedor">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Enviar</button>
+                </form>
+            </div>
+            <!-- Find Form -->
         </div>
     </div>
     <div class="card-body">
@@ -64,8 +84,8 @@
                                 {{item.proveedor}}
                             </td>
                             <td>
-                                <button class="btn btn-danger"  data-toggle="modal"
-                                [attr.data-target]="'#delete-'+item._id">
+                                <button class="btn btn-danger" data-toggle="modal"
+                                    [attr.data-target]="'#delete-'+item._id">
                                     <i class="fw-normal icon-tem ci-delete"></i>
                                 </button>
 
