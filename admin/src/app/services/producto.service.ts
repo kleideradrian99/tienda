@@ -66,4 +66,16 @@ export class ProductoService {
     return this._http.delete(this.url + 'eliminar_producto_admin/' + id, { headers: headers });
   }
 
+
+  //Servicio Listar Inventario
+  listar_inventario_admin(id: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-type': 'application/json', 'Authorization': token });
+    return this._http.get(this.url + 'listar_inventario_admin/' + id, { headers: headers });
+  }
+
+  eliminar_inventario_admin(id: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-type': 'application/json', 'Authorization': token });
+    return this._http.delete(this.url + 'eliminar_inventario_admin/' + id, { headers: headers });
+  }
+
 }
