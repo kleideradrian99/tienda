@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CuponService } from 'src/app/services/cupon.service';
 
 declare var iziToast: any;
@@ -17,7 +18,8 @@ export class CreateCuponComponent implements OnInit {
   public token;
 
   constructor(
-    private _cuponService: CuponService
+    private _cuponService: CuponService,
+    private _Router: Router
   ) {
     this.token = localStorage.getItem('token');
   }
@@ -26,12 +28,24 @@ export class CreateCuponComponent implements OnInit {
   }
 
   registro(registroForm: any) {
+    this.load_btn = true;
     if (registroForm.valid) {
       this._cuponService.registro_cupon_admin(this.cupon, this.token).subscribe(
         Response => {
-          console.log(Response)
+          iziToast.show({
+            title: 'Success',
+            titleColor: '#141514',
+            messageColor: '#000',
+            backgroundColor: '#B2FFB8',
+            class: 'text-success',
+            position: 'topRight',
+            message: 'Se agregro correctamente el nuevo cupon'
+          });
+          this.load_btn = false;
+          this._Router.navigate(['/panel/cupones']);
         }, error => {
           console.log(error)
+          this.load_btn = false;
         }
       )
     } else {
