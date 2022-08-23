@@ -17,6 +17,7 @@ import { CreateProductoComponent } from './components/productos/create-producto/
 import { IndexProductosComponent } from './components/productos/index-productos/index-productos.component';
 import { UpdateProductoComponent } from './components/productos/update-producto/update-producto.component';
 import { InventarioProductoComponent } from './components/productos/inventario-producto/inventario-producto.component';
+import { CreateCuponComponent } from './components/cupones/create-cupon/create-cupon.component';
 
 
 
@@ -33,6 +34,7 @@ import { InventarioProductoComponent } from './components/productos/inventario-p
     IndexProductosComponent,
     UpdateProductoComponent,
     InventarioProductoComponent,
+    CreateCuponComponent,
   ],
   imports: [
     BrowserModule,
