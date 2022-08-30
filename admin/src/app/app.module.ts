@@ -20,6 +20,7 @@ import { InventarioProductoComponent } from './components/productos/inventario-p
 import { CreateCuponComponent } from './components/cupones/create-cupon/create-cupon.component';
 import { IndexCuponComponent } from './components/cupones/index-cupon/index-cupon.component';
 import { UpdateCuponComponent } from './components/cupones/update-cupon/update-cupon.component';
+import { ConfigComponent } from './components/config/config.component';
 
 
 
@@ -39,6 +40,7 @@ import { UpdateCuponComponent } from './components/cupones/update-cupon/update-c
     CreateCuponComponent,
     IndexCuponComponent,
     UpdateCuponComponent,
+    ConfigComponent,
   ],
   imports: [
     BrowserModule,
