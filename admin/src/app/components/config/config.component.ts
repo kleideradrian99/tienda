@@ -31,7 +31,7 @@ export class ConfigComponent implements OnInit {
     this._adminService.obtener_config_admin(this.token).subscribe(
       response => {
         this.config = response.data;
-        this.imgSelect = this.url+'obtener_logo/'+this.config.logo;
+        this.imgSelect = this.url + 'obtener_logo/' + this.config.logo;
       }, error => {
         console.log(error)
       }
@@ -156,6 +156,11 @@ export class ConfigComponent implements OnInit {
     //   this.file = undefined;
     // }
   }
+
+
+  eliminarCategoria(idx: any) {
+    this.config.categorias.splice(idx, 1);
+   }
 
   // Arrastra la Ima
   // ngDoCheck(): void {

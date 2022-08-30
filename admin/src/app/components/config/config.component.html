@@ -59,6 +59,7 @@
 
                     <th>Categoria</th>
                     <th>Icono</th>
+                    <th>Eliminar</th>
 
                   </tr>
                 </thead>
@@ -71,11 +72,13 @@
                     </tr>
                   </tbody>
                 </ng-container>
-                <ng-container *ngFor="let item of config.categorias">
+                <ng-container *ngFor="let item of config.categorias, let indice = index">
                   <tbody>
                     <tr>
                       <td>{{item.titulo}}</td>
-                      <td>{{item.icono}}</td>
+                      <td><i class="{{item.icono}}"></i> {{item.icono}}</td>
+                      <td><a style="cursor: pointer;" class="text-danger"
+                          (click)="eliminarCategoria(indice)">[Eliminar]</a></td>
                     </tr>
                   </tbody>
                 </ng-container>
