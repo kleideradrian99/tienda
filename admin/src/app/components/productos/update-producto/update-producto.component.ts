@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AdminService } from 'src/app/services/admin.service';
 import { global } from 'src/app/services/global';
 import { ProductoService } from 'src/app/services/producto.service';
 
@@ -21,14 +22,25 @@ export class UpdateProductoComponent implements OnInit {
   public token;
   public url;
   public file: File | undefined;
+  public config_global: any = {};
 
   constructor(
     private _route: ActivatedRoute,
     private _productoService: ProductoService,
-    private _router: Router
+    private _router: Router,
+    private _adminService: AdminService
   ) {
     this.token = localStorage.getItem('token');
     this.url = global.url;
+    this._adminService.obtener_config_public().subscribe(
+      response => {
+        this.config_global = response.data;
+        console.log(this.config_global);
+      },
+      error => {
+        console.log(error);
+      }
+    )
   }
 
   ngOnInit(): void {
@@ -64,7 +76,7 @@ export class UpdateProductoComponent implements OnInit {
       data.categoria = this.producto.categoria;
       data.descripcion = this.producto.descripcion;
       data.contenido = this.producto.contenido;
-      
+
       this.load_btn = true;
 
       this._productoService.actualizar_producto_admin(this.token, data, this.id).subscribe(

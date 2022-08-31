@@ -18,7 +18,6 @@ export class AdminService {
 
   login_admin(data: any): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
-
     return this._http.post(this.url + 'login_admin', data, { headers: headers });
   }
 
@@ -79,6 +78,11 @@ export class AdminService {
   obtener_config_admin(token: any): Observable<any> {
     let headers = new HttpHeaders({ 'Content-type': 'application/json', 'Authorization': token });
     return this._http.get(this.url + 'obtener_config_admin', { headers: headers });
+  }
+
+  obtener_config_public(): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.get(this.url + 'obtener_config_public',  { headers: headers });
   }
 
 }

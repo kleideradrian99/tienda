@@ -20,6 +20,9 @@ export class CreateProductoComponent implements OnInit {
   public token;
   public load_btn = false;
 
+  // LLamar Las Categorias
+  public config_global: any = {};
+
 
   constructor(
     private _productoService: ProductoService,
@@ -27,6 +30,15 @@ export class CreateProductoComponent implements OnInit {
     private _router: Router
   ) {
     this.token = this._adminService.getToken();
+    this._adminService.obtener_config_public().subscribe(
+      response => {
+        this.config_global = response.data;
+        console.log(this.config_global);
+      },
+      error => {
+        console.log(error);
+      }
+    )
   }
 
   ngOnInit(): void {
