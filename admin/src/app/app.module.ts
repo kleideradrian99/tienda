@@ -22,6 +22,7 @@ import { IndexCuponComponent } from './components/cupones/index-cupon/index-cupo
 import { UpdateCuponComponent } from './components/cupones/update-cupon/update-cupon.component';
 import { ConfigComponent } from './components/config/config.component';
 import { VariedadProducoComponent } from './components/productos/variedad-produco/variedad-produco.component';
+import { GaleriaProducoComponent } from './components/productos/galeria-produco/galeria-produco.component';
 
 
 
@@ -43,6 +44,7 @@ import { VariedadProducoComponent } from './components/productos/variedad-produc
     UpdateCuponComponent,
     ConfigComponent,
     VariedadProducoComponent,
+    GaleriaProducoComponent,
   ],
   imports: [
     BrowserModule,

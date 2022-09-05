@@ -88,4 +88,19 @@ export class ProductoService {
     return this._http.put(this.url + 'actualizar_producto_variedades_admin/' + id, data, { headers: headers });
   }
 
+  agregar_imagen_galeria_admin(token: any, data: any, id: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Authorization': token });
+
+    const fb = new FormData();
+    fb.append('_id', data._id);
+    fb.append('imagen', data.imagen);
+
+    return this._http.put(this.url + 'agregar_imagen_galeria_admin/' + id, fb, { headers: headers });
+  }
+
+  eliminar_imagen_galeria_admin(id: any, token: any, data: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-type': 'application/json', 'Authorization': token });
+    return this._http.put(this.url + 'eliminar_imagen_galeria_admin/' + id, data, { headers: headers });
+  }
+
 }

@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="form-group row align-items-center">
-                <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Categorías</label>
+                <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Variedades</label>
                 <div class="col-md-9">
                     <!-- Button addon on the right -->
                     <div class="input-group">
@@ -74,7 +74,7 @@
 
                                 </tr>
                             </thead>
-                            <ng-container *ngIf="producto.variedadeslength == 0">
+                            <ng-container *ngIf="producto.variedades.length == 0">
                                 <tbody>
                                     <tr>
                                         <td colspan="2" class="text-center">
