@@ -45,7 +45,8 @@
                                 placeholder="Proveedor" required [(ngModel)]="inventario.proveedor">
                         </div>
                     </div>
-                    <button class="btn btn-primary" type="submit">Enviar</button>
+                    <button class="btn btn-primary mr-3" type="submit">Enviar</button>
+                    <button class="btn btn-success" type="button" (click)="download_excel()">Exportar Excel</button>
                 </form>
             </div>
             <!-- Find Form -->

@@ -28,6 +28,9 @@
                     <button class="btn btn-info" type="button" (click)="resetear()">Resetear</button>
                 </div>
             </div>
+            <div class="col-12">
+                <button class="btn btn-success mt-3" (click)="download_excel()">Export for Excel</button>
+            </div>
         </div>
     </div>
     <div class="card-body">
@@ -83,7 +86,7 @@
                                             Inventory</a>
                                         <a class="dropdown-item"
                                             [routerLink]="['/panel/productos/variedades',item._id]">Varieties</a>
-                                            <a class="dropdown-item"
+                                        <a class="dropdown-item"
                                             [routerLink]="['/panel/productos/galeria',item._id]">Galery</a>
                                     </div>
                                 </div>
