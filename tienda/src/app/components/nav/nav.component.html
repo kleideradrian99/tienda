@@ -18,9 +18,9 @@
             <div class="d-flex align-items-center order-lg-3">
                 <ul class="nav nav-tools flex-nowrap">
                     <li class="nav-item d-lg-block d-none mb-0">
-                        <a href="account-wishlist.html" class="nav-tool">
-                            <i class="cxi-heart nav-tool-icon"></i>
-                            <span class="nav-tool-label">2</span>
+                        <a [routerLink]="['/login']" class="nav-tool">
+                            <i class="cxi-profile nav-tool-icon"></i>
+                            <span class="nav-tool-label">Iniciar sesión</span>
                         </a>
                     </li>
                     <li class="divider-vertical mb-0 d-lg-block d-none"></li>
@@ -32,9 +32,10 @@
                     </li>
                     <li class="divider-vertical mb-0 d-lg-none d-block"></li>
                     <li class="nav-item mb-0">
-                        <button class="navbar-toggler mt-n1 mr-n3" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-expanded="false">
-                <span class="navbar-toggler-icon"></span>
-              </button>
+                        <button class="navbar-toggler mt-n1 mr-n3" type="button" data-toggle="collapse"
+                            data-target="#navbarCollapse" aria-expanded="false">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
                     </li>
                 </ul>
             </div>
@@ -42,17 +43,19 @@
             <nav class="collapse navbar-collapse order-lg-2" id="navbarCollapse">
                 <!-- Search mobile -->
                 <div class="input-group-overlay form-group mb-0 d-lg-none d-block">
-                    <input type="text" class="form-control prepended-form-control rounded-0 border-0" placeholder="Search for products...">
+                    <input type="text" class="form-control prepended-form-control rounded-0 border-0"
+                        placeholder="Search for products...">
                     <div class="input-group-prepend-overlay">
                         <span class="input-group-text">
-                <i class="cxi-search font-size-lg align-middle mt-n1"></i>
-              </span>
+                            <i class="cxi-search font-size-lg align-middle mt-n1"></i>
+                        </span>
                     </div>
                 </div>
                 <!-- Menu -->
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a href="index.html" class="nav-link active">Home</a>
+                        <a [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                            class="nav-link">Inicio</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Shop</a>
@@ -126,7 +129,8 @@
                                     </div>
                                     <div class="col-lg-3 d-none d-lg-block py-2">
                                         <a href="#" class="d-block text-decoration-none pt-1">
-                                            <img src="assets/img/ecommerce/megamenu.jpg" class="d-block rounded mb-3" alt="Promo banner">
+                                            <img src="assets/img/ecommerce/megamenu.jpg" class="d-block rounded mb-3"
+                                                alt="Promo banner">
                                             <h5 class="font-size-sm mb-3">Back to school. Sale up to 50%</h5>
                                             <div class="btn btn-outline-primary btn-sm">
                                                 See offers
