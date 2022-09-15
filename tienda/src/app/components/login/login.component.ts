@@ -13,15 +13,20 @@ export class LoginComponent implements OnInit {
 
   public user: any = {};
   public usuario: any = {};
+  public token;
 
   constructor(
     private _clienteService: ClienteService,
     private _router: Router,
   ) {
-
+    this.token = localStorage.getItem('token');
+    if (this.token) {
+      this._router.navigate(['/']);
+    }
   }
 
   ngOnInit(): void {
+
   }
 
   login(loginForm: any) {
@@ -45,12 +50,6 @@ export class LoginComponent implements OnInit {
             this.usuario = response.data;
             localStorage.setItem('token', response.token);
             localStorage.setItem('_id', response.data._id);
-
-            this._clienteService.obtener_cliente_guest(response.data._id, response.token).subscribe(res => {
-              console.log(res);
-            }, error=>{
-              console.log(error);
-            });
 
             this._router.navigate(['/']);
           }
