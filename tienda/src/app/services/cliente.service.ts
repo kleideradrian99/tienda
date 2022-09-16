@@ -24,4 +24,9 @@ export class ClienteService {
     return this._http.get(this.url + 'obtener_cliente_guest/' + id, { headers: headers });
   }
 
+  actuaizar_perfil_cliente_guest(id: any, data: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-type': 'application/json', 'Authorization': token });
+    return this._http.put(this.url + 'actuaizar_perfil_cliente_guest/' + id, data, { headers: headers });
+  }
+
 }

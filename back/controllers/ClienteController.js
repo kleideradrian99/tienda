@@ -14,8 +14,6 @@ const registro_cliente = async function (req, res) {
 
     //Validar que el correo ya existe en bd
     if (clientes_arr.length == 0) {
-
-
         if (data.password) {
             bcrypt.hash(data.password, null, null, async function (err, hash) {
                 if (hash) {
@@ -169,7 +167,7 @@ const eliminar_cliente_admin = async function (req, res) {
 
             let reg = await Cliente.findByIdAndRemove({ _id: id });
             res.status(200).send({ data: reg });
-            
+
 
 
         } else {
@@ -194,6 +192,43 @@ const obtener_cliente_guest = async function (req, res) {
     }
 }
 
+const actuaizar_perfil_cliente_guest = async function (req, res) {
+    if (req.user) {
+        var id = req.params['id'];
+        var data = req.body;
+
+        if (data.password) {
+            bcrypt.hash(data.password, null, null, async function (err, hash) {
+                var reg = await Cliente.findByIdAndUpdate({ _id: id }, {
+                    nombres: data.nombres,
+                    apellidos: data.apellidos,
+                    telefono: data.telefono,
+                    f_nacimiento: data.f_nacimiento,
+                    dni: data.dni,
+                    genero: data.genero,
+                    pais: data.pais,
+                    password: hash
+                });
+                res.status(200).send({ data: reg });
+            });
+        } else {
+            var reg = await Cliente.findByIdAndUpdate({ _id: id }, {
+                nombres: data.nombres,
+                apellidos: data.apellidos,
+                telefono: data.telefono,
+                f_nacimiento: data.f_nacimiento,
+                dni: data.dni,
+                genero: data.genero,
+                pais: data.pais,
+            });
+            res.status(200).send({ data: reg });
+        }
+
+    } else {
+        res.status(500).send({ message: 'NoAccess' });
+    }
+}
+
 module.exports = {
     registro_cliente,
     login_cliente,
@@ -202,5 +237,6 @@ module.exports = {
     obtener_cliente_admin,
     actualizar_cliente_admin,
     eliminar_cliente_admin,
-    obtener_cliente_guest
+    obtener_cliente_guest,
+    actuaizar_perfil_cliente_guest
 }

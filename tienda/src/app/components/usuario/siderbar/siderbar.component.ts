@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ClienteService } from 'src/app/services/cliente.service';
 
 @Component({
-  selector: 'app-nav',
-  templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.css']
+  selector: 'app-siderbar',
+  templateUrl: './siderbar.component.html',
+  styleUrls: ['./siderbar.component.css']
 })
-export class NavComponent implements OnInit {
+export class SiderbarComponent implements OnInit {
 
   public token;
   public id: any;
