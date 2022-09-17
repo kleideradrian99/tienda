@@ -36,17 +36,17 @@
                                 <a [routerLink]="['/cuenta/perfil']" href="#" class="dropdown-item">
                                     <i class="cxi-profile me-2"></i>
                                     Perfil
-                                    <span class="badge rounded-pill bg-danger ms-2">3</span>
+                                    <!-- <span class="badge rounded-pill bg-danger ms-2">3</span> -->
                                 </a>
                                 <a href="#" class="dropdown-item">
                                     <i class="cxi-comment me-2"></i>
                                     Messages
                                     <span class="badge rounded-pill bg-success ms-2">5</span>
                                 </a>
-                                <a href="#" class="dropdown-item">
-                                    <i class="cxi-external-link me-2"></i>
-                                    Settings
-                                    <span class="badge rounded-pill bg-warning ms-2">1</span>
+                                <a (click)="logout()" class="dropdown-item" style="cursor: pointer;">
+                                    <i class="cxi-logout me-2" ></i>
+                                    Cerrar Sesión
+                                    <!-- <span class="badge rounded-pill bg-warning ms-2">1</span> -->
                                 </a>
                             </div>
                         </li>
