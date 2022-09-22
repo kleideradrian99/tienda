@@ -43,6 +43,12 @@ export class AdminService {
       var decodedToken = helper.decodeToken(token + "");
       // console.log(decodedToken);
 
+      if (helper.isTokenExpired(token)) {
+        localStorage.clear();
+        return false;
+
+      }
+
       if (!decodedToken) {
         console.log('NO ES VALIDO');
         localStorage.removeItem('token');
@@ -66,7 +72,7 @@ export class AdminService {
       fb.append('serie', data.serie);
       fb.append('correlativo', data.correlativo);
       fb.append('categorias', JSON.stringify(data.categorias));
-      fb.append('logo', data.logo); 
+      fb.append('logo', data.logo);
 
       return this._http.put(this.url + 'actualizar_config_admin/' + id, fb, { headers: headers });
     } else {
@@ -82,7 +88,7 @@ export class AdminService {
 
   obtener_config_public(): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this._http.get(this.url + 'obtener_config_public',  { headers: headers });
+    return this._http.get(this.url + 'obtener_config_public', { headers: headers });
   }
 
 }
