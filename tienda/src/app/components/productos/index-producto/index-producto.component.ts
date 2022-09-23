@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from 'src/app/services/cliente.service';
+import { global } from 'src/app/services/global'
 
 declare var noUiSlider: any;
 declare var $: any;
@@ -14,18 +15,28 @@ export class IndexProductoComponent implements OnInit {
   // LLamar Las Categorias
   public config_global: any = {};
   public filter_categoria = '';
+  public productos: Array<any> = [];
+  public filter_producto = '';
+  public load_data = true;
+  public url;
 
   constructor(
     private _clienteService: ClienteService,
   ) {
+    this.url = global.url;
+
     this._clienteService.obtener_config_public().subscribe(
       response => {
         this.config_global = response.data;
-      },
-      error => {
-        console.log(error);
       }
-    )
+    );
+
+    //Mostrar los productos
+    this._clienteService.listar_producto_publico(this.filter_producto).subscribe(
+      response => {
+        this.productos = response.data;
+        this.load_data = false;
+      });
   }
 
   ngOnInit(): void {
@@ -64,11 +75,16 @@ export class IndexProductoComponent implements OnInit {
       this._clienteService.obtener_config_public().subscribe(
         response => {
           this.config_global = response.data;
-        },
-        error => {
-          console.log(error);
         }
       )
     }
+  }
+
+  buscar_producto() {
+    this._clienteService.listar_producto_publico(this.filter_producto).subscribe(
+      response => {
+        this.productos = response.data;
+        this.load_data = false;
+      });
   }
 }

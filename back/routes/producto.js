@@ -25,4 +25,7 @@ api.get('/listar_inventario_admin/:id', auth.auth, productoController.listar_inv
 api.delete('/eliminar_inventario_admin/:id', auth.auth, productoController.eliminar_inventario_admin);
 api.post('/registro_inventario_producto_admin', auth.auth, productoController.registro_inventario_producto_admin);
 
+//PUBLICOS TIENDA
+api.get('/listar_producto_publico/:filtro?', productoController.listar_producto_publico);
+
 module.exports = api;
