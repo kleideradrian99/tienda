@@ -13,11 +13,22 @@ export class NavComponent implements OnInit {
   public id: any;
   public user: any | undefined;
   public user_lc: any | undefined;
+  public config_global: any = {};
 
   constructor(
     private _clienteService: ClienteService,
     private _router: Router,
   ) {
+    //Categorias
+    this._clienteService.obtener_config_public().subscribe(
+      response => {
+        this.config_global = response.data;
+      },
+      error => {
+        console.log(error);
+      }
+    )
+
     this.token = localStorage.getItem('token');
     this.id = localStorage.getItem('_id');
 
