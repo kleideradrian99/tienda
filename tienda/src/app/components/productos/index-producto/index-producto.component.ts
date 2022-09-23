@@ -87,4 +87,19 @@ export class IndexProductoComponent implements OnInit {
         this.load_data = false;
       });
   }
+
+  buscar_precio() {
+    this._clienteService.listar_producto_publico(this.filter_producto).subscribe(
+      response => {
+        this.productos = response.data;
+        let min = parseInt($('.cs-range-slider-value-min').val());
+        let max = parseInt($('.cs-range-slider-value-max').val());
+
+        this.productos = this.productos.filter(
+          function (item: any) {
+            return item.precio >= min && item.precio <= max;
+          }
+        );
+      });
+  }
 }
