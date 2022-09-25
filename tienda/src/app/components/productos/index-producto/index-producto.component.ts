@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { global } from 'src/app/services/global'
 
@@ -21,23 +22,46 @@ export class IndexProductoComponent implements OnInit {
   public url;
   public filter_cat_productos = 'todos';
 
+  public route_categoria: any;
+
   constructor(
     private _clienteService: ClienteService,
+    private _route: ActivatedRoute
   ) {
     this.url = global.url;
 
     this._clienteService.obtener_config_public().subscribe(
       response => {
         this.config_global = response.data;
+
       }
     );
 
-    //Mostrar los productos
-    this._clienteService.listar_producto_publico(this.filter_producto).subscribe(
-      response => {
-        this.productos = response.data;
-        this.load_data = false;
-      });
+    // 
+    this._route.params.subscribe(
+      params => {
+        this.route_categoria = params['categoria'];
+
+        // Validar si tengo algo en mi variable
+        if (this.route_categoria) {
+          //Mostrar los productos
+          this._clienteService.listar_producto_publico(this.filter_producto).subscribe(
+            response => {
+              this.productos = response.data;
+              this.productos = this.productos.filter(item => item.categoria.toLowerCase() == this.route_categoria);
+              this.load_data = false;
+            });
+        } else {
+          this._clienteService.listar_producto_publico(this.filter_producto).subscribe(
+            response => {
+              this.productos = response.data;
+              this.load_data = false;
+            });
+        }
+      }
+    );
+
+
   }
 
   ngOnInit(): void {
@@ -116,8 +140,9 @@ export class IndexProductoComponent implements OnInit {
         response => {
           this.productos = response.data;
           this.productos = this.productos.filter(item => item.categoria == this.filter_cat_productos);
+          this.load_data = false;
         });
-      
+
     }
   }
 }
