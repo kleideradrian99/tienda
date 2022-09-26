@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, provideRoutes } from '@angular/router';
+import { global } from 'src/app/services/global';
+import { GuestService } from 'src/app/services/guest.service';
 
 declare var tns: any;
 declare var lightGallery: any;
@@ -10,31 +13,57 @@ declare var lightGallery: any;
 })
 export class ShowProductoComponent implements OnInit {
 
-  constructor() { }
+  public slug: any;
+  public producto: any = {};
+  public url: any;
+
+  constructor(
+    private _route: ActivatedRoute,
+    private _serviceGuest: GuestService
+
+  ) {
+    this.url = global.url;
+    this._route.params.subscribe(
+      params => {
+        this.slug = params['slug'];
+        this._serviceGuest.obtener_producto_slug_publico(this.slug).subscribe(
+          response => {
+            this.producto = response.data;
+            console.log(this.producto)
+          }
+        )
+      });
+  }
 
   ngOnInit(): void {
     // TimeSlider Previsualizador Detalles Prducto
-    tns({
-      container: '.cs-carousel-inner',
-      controlsText: ['<i class="cxi-arrow-left"></i>', '<i class="cxi-arrow-right"></i>'],
-      navPosition: "top",
-      controlsPosition: "top",
-      mouseDrag: !0,
-      speed: 600,
-      autoplayHoverPause: !0,
-      autoplayButtonOutput: !1,
-      navContainer: "#cs-thumbnails",
-      navAsThumbnails: true,
-      gutter: 15,
-    });
+    // Visualizar imagen Carrusel
+    setTimeout(() => {
+      tns({
+        container: '.cs-carousel-inner',
+        controlsText: ['<i class="cxi-arrow-left"></i>', '<i class="cxi-arrow-right"></i>'],
+        navPosition: "top",
+        controlsPosition: "top",
+        mouseDrag: !0,
+        speed: 600,
+        autoplayHoverPause: !0,
+        autoplayButtonOutput: !1,
+        navContainer: "#cs-thumbnails",
+        navAsThumbnails: true,
+        gutter: 15,
+      });
 
-    // Light Galeria
-    var e = document.querySelectorAll(".cs-gallery");
-    if (e.length) {
-      for (var t = 0; t < e.length; t++) {
-        lightGallery(e[t], { selector: ".cs-gallery-item", download: !1, videojs: !0, youtubePlayerParams: { modestbranding: 1, showinfo: 0, rel: 0 }, vimeoPlayerParams: { byline: 0, portrait: 0 } });
+
+      // Light Galeria
+      var e = document.querySelectorAll(".cs-gallery");
+      if (e.length) {
+        for (var t = 0; t < e.length; t++) {
+          lightGallery(e[t], { selector: ".cs-gallery-item", download: !1, videojs: !0, youtubePlayerParams: { modestbranding: 1, showinfo: 0, rel: 0 }, vimeoPlayerParams: { byline: 0, portrait: 0 } });
+        }
       }
-    }
+    }, 500)
+
+
 
     // SLIDER PRODUCTOS RECOMENDADOS
     tns({
