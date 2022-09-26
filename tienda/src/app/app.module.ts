@@ -13,6 +13,9 @@ import { LoginComponent } from './components/login/login.component';
 import { PerfilComponent } from './components/usuario/perfil/perfil.component';
 import { SiderbarComponent } from './components/usuario/siderbar/siderbar.component';
 import { IndexProductoComponent } from './components/productos/index-producto/index-producto.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +33,9 @@ import { IndexProductoComponent } from './components/productos/index-producto/in
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    routing
+    routing,
+    NgbModule,
+    NgbPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

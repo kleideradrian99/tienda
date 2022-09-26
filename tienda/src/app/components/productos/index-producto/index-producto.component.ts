@@ -24,6 +24,10 @@ export class IndexProductoComponent implements OnInit {
 
   public route_categoria: any;
 
+    //PAGINACION
+    public page = 1;
+    public pageSize = 15;
+
   constructor(
     private _clienteService: ClienteService,
     private _route: ActivatedRoute
@@ -45,14 +49,14 @@ export class IndexProductoComponent implements OnInit {
         // Validar si tengo algo en mi variable
         if (this.route_categoria) {
           //Mostrar los productos
-          this._clienteService.listar_producto_publico(this.filter_producto).subscribe(
+          this._clienteService.listar_producto_publico('').subscribe(
             response => {
               this.productos = response.data;
               this.productos = this.productos.filter(item => item.categoria.toLowerCase() == this.route_categoria);
               this.load_data = false;
             });
         } else {
-          this._clienteService.listar_producto_publico(this.filter_producto).subscribe(
+          this._clienteService.listar_producto_publico('').subscribe(
             response => {
               this.productos = response.data;
               this.load_data = false;
@@ -144,5 +148,14 @@ export class IndexProductoComponent implements OnInit {
         });
 
     }
+  }
+
+  reset_productos() {
+    this.filter_producto = '';
+    this._clienteService.listar_producto_publico('').subscribe(
+      response => {
+        this.productos = response.data;
+        this.load_data = false;
+      });
   }
 }
