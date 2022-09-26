@@ -15,6 +15,7 @@ import { SiderbarComponent } from './components/usuario/siderbar/siderbar.compon
 import { IndexProductoComponent } from './components/productos/index-producto/index-producto.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { ShowProductoComponent } from './components/productos/show-producto/show-producto.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
     LoginComponent,
     PerfilComponent,
     SiderbarComponent,
-    IndexProductoComponent
+    IndexProductoComponent,
+    ShowProductoComponent
   ],
   imports: [
     BrowserModule,
