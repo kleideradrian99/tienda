@@ -312,14 +312,21 @@ const eliminar_imagen_galeria_admin = async function (req, res) {
 
 const listar_producto_publico = async function (req, res) {
     var filtro = req.params['filtro'];
-    let reg = await producto.find({ titulo: new RegExp(filtro, 'i') })
+    let reg = await producto.find({ titulo: new RegExp(filtro, 'i') }).sort({ createdAt: -1 });
 
     res.status(200).send({ data: reg });
 }
 
 const obtener_producto_slug_publico = async function (req, res) {
     var slug = req.params['slug'];
-    let reg = await producto.findOne({ slug: slug })
+    let reg = await producto.findOne({ slug: slug });
+
+    res.status(200).send({ data: reg });
+}
+
+const listar_producto_recomendados_publico = async function (req, res) {
+    var categoria = req.params['categoria'];
+    let reg = await producto.find({ categoria: categoria }).sort({ createdAt: -1 }).limit(8);
 
     res.status(200).send({ data: reg });
 }
@@ -338,5 +345,6 @@ module.exports = {
     agregar_imagen_galeria_admin,
     eliminar_imagen_galeria_admin,
     listar_producto_publico,
-    obtener_producto_slug_publico
+    obtener_producto_slug_publico,
+    listar_producto_recomendados_publico
 }

@@ -16,6 +16,7 @@ export class ShowProductoComponent implements OnInit {
   public slug: any;
   public producto: any = {};
   public url: any;
+  public productos_rec: Array<any> = [];
 
   constructor(
     private _route: ActivatedRoute,
@@ -29,7 +30,14 @@ export class ShowProductoComponent implements OnInit {
         this._serviceGuest.obtener_producto_slug_publico(this.slug).subscribe(
           response => {
             this.producto = response.data;
-            console.log(this.producto)
+            // Cargar productos recomendados
+            this._serviceGuest.listar_producto_recomendados_publico(this.producto.categoria).subscribe(
+              response => {
+                this.productos_rec = response.data;
+                console.log(this.productos_rec);
+              }
+            )
+
           }
         )
       });
@@ -53,7 +61,6 @@ export class ShowProductoComponent implements OnInit {
         gutter: 15,
       });
 
-
       // Light Galeria
       var e = document.querySelectorAll(".cs-gallery");
       if (e.length) {
@@ -61,42 +68,40 @@ export class ShowProductoComponent implements OnInit {
           lightGallery(e[t], { selector: ".cs-gallery-item", download: !1, videojs: !0, youtubePlayerParams: { modestbranding: 1, showinfo: 0, rel: 0 }, vimeoPlayerParams: { byline: 0, portrait: 0 } });
         }
       }
+
+      // SLIDER PRODUCTOS RECOMENDADOS
+      tns({
+        container: '.cs-carousel-inner-two',
+        controlsText: ['<i class="cxi-arrow-left"></i>', '<i class="cxi-arrow-right"></i>'],
+        navPosition: "top",
+        controlsPosition: "top",
+        mouseDrag: !0,
+        speed: 600,
+        autoplayHoverPause: !0,
+        autoplayButtonOutput: !1,
+        nav: false,
+        controlsContainer: "#custom-controls-related",
+        responsive: {
+          0: {
+            items: 1,
+            gutter: 20
+          },
+          480: {
+            items: 2,
+            gutter: 24
+          },
+          700: {
+            items: 3,
+            gutter: 24
+          },
+          1100: {
+            items: 4,
+            gutter: 30
+          }
+        }
+      });
     }, 500)
 
 
-
-    // SLIDER PRODUCTOS RECOMENDADOS
-    tns({
-      container: '.cs-carousel-inner-two',
-      controlsText: ['<i class="cxi-arrow-left"></i>', '<i class="cxi-arrow-right"></i>'],
-      navPosition: "top",
-      controlsPosition: "top",
-      mouseDrag: !0,
-      speed: 600,
-      autoplayHoverPause: !0,
-      autoplayButtonOutput: !1,
-      nav: false,
-      controlsContainer: "#custom-controls-related",
-      responsive: {
-        0: {
-          items: 1,
-          gutter: 20
-        },
-        480: {
-          items: 2,
-          gutter: 24
-        },
-        700: {
-          items: 3,
-          gutter: 24
-        },
-        1100: {
-          items: 4,
-          gutter: 30
-        }
-      }
-    });
   }
-
-
 }
