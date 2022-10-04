@@ -5,6 +5,7 @@ import { global } from 'src/app/services/global'
 
 declare var noUiSlider: any;
 declare var $: any;
+declare var iziToast: any;
 
 @Component({
   selector: 'app-index-producto',
@@ -23,6 +24,14 @@ export class IndexProductoComponent implements OnInit {
   public filter_cat_productos = 'todos';
 
   public route_categoria: any;
+  public token;
+
+  //Agregar al carrito
+  public carrito_data: any = {
+    variedad: '',
+    cantidad: 1
+  };
+  public btn_cart = false;
 
   //PAGINACION
   public page = 1;
@@ -36,6 +45,7 @@ export class IndexProductoComponent implements OnInit {
     private _route: ActivatedRoute
   ) {
     this.url = global.url;
+    this.token = localStorage.getItem('token');
 
     this._clienteService.obtener_config_public().subscribe(
       response => {
@@ -220,5 +230,44 @@ export class IndexProductoComponent implements OnInit {
         return 0;
       });
     }
+  }
+
+  // Agregar al carrito
+  agregar_producto(producto: any) {
+    let data = {
+      producto: producto._id,
+      cliente: localStorage.getItem('_id'),
+      cantidad: 1,
+      variedad: producto.variedades[0].titulo,
+    }
+    this.btn_cart = true;
+    this._clienteService.agregar_carrito_cliente(data, this.token).subscribe(
+      response => {
+        if (response.data == undefined) {
+          iziToast.show({
+            title: 'Error: ',
+            titleColor: '#FF0000',
+            messageColor: '#000',
+            class: 'text-danger',
+            position: 'topRight',
+            message: 'El producto ya existe en el carrito'
+          });
+          this.btn_cart = false;
+        } else {
+          console.log(response);
+          iziToast.show({
+            title: 'Info:',
+            titleColor: '#00FF00',
+            messageColor: '#000',
+            backgroundColor: '#efefef',
+            class: 'text-success',
+            position: 'topRight',
+            message: 'Se agregro el producto al carrito'
+          });
+          this.btn_cart = false;
+        }
+      }
+    );
+
   }
 }
