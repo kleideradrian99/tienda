@@ -18,6 +18,20 @@ const agregar_carrito_cliente = async function (req, res) {
     }
 }
 
+const obtener_carrito_cliente = async function (req, res) {
+    if (req.user) {
+        let id = req.params['id'];
+
+        //Historial de carrito del cliente
+        let carrito_cliente = await Carrito.find({ cliente: id }).populate('producto');
+        res.status(200).send({ data: carrito_cliente });
+
+    } else {
+        res.status(500).send({ message: 'NoAccess' });
+    }
+}
+
 module.exports = {
-    agregar_carrito_cliente
+    agregar_carrito_cliente,
+    obtener_carrito_cliente
 }
