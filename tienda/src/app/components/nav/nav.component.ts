@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { global } from 'src/app/services/global';
+import { io } from "socket.io-client";
 
 declare var $: any;
 
@@ -20,6 +21,9 @@ export class NavComponent implements OnInit {
   public carrito_arr: Array<any> = [];
   public url: any;
   public subtotal = 0;
+
+  // Socket
+  public socket = io('http://localhost:4201');
 
   // Modal Carrito
   public op_cart = false;
@@ -51,14 +55,8 @@ export class NavComponent implements OnInit {
 
           if (localStorage.getItem('user_data')) {
             this.user_lc = JSON.parse(localStorage.getItem('user_data') || '{}');
+            this.obtener_carrito_cliente();
 
-            // Obtener Data del carrito
-            this._clienteService.obtener_carrito_cliente(this.user_lc._id, this.token).subscribe(
-              response => {
-                this.carrito_arr = response.data;
-                this.calcular_carrito();
-              }
-            );
           } else {
             this.user_lc = undefined;
           }
@@ -69,7 +67,21 @@ export class NavComponent implements OnInit {
     }
   }
 
+  obtener_carrito_cliente() {
+    // Obtener Data del carrito
+    this._clienteService.obtener_carrito_cliente(this.user_lc._id, this.token).subscribe(
+      response => {
+        this.carrito_arr = response.data;
+        this.calcular_carrito();
+      }
+    );
+  }
+
   ngOnInit(): void {
+    this.socket.on('new-carrito', (data) => {
+      console.log(data);
+      this.obtener_carrito_cliente();
+    });
   }
 
   logout() {
@@ -88,9 +100,18 @@ export class NavComponent implements OnInit {
     }
   }
 
-  calcular_carrito(){
-    this.carrito_arr.forEach(element =>{
-this.subtotal = this.subtotal + parseInt(element.producto.precio);
+  calcular_carrito() {
+    this.carrito_arr.forEach(element => {
+      this.subtotal = this.subtotal + parseInt(element.producto.precio);
     });
+  }
+  eliminar_item(id: any) {
+    this._clienteService.eliminar_carrito_cliente(id, this.token).subscribe(
+      response => {
+        // Realtime
+        this.socket.emit('delete-carrito', { data: response.data });
+        console.log(response);
+      }
+    );
   }
 }
