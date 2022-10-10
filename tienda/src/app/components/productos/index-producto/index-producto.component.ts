@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { global } from 'src/app/services/global'
+import { io } from "socket.io-client";
 
 declare var noUiSlider: any;
 declare var $: any;
@@ -25,6 +26,9 @@ export class IndexProductoComponent implements OnInit {
 
   public route_categoria: any;
   public token;
+
+  // Socket
+  public socket = io('http://localhost:4201');
 
   //Agregar al carrito
   public carrito_data: any = {
@@ -264,6 +268,7 @@ export class IndexProductoComponent implements OnInit {
             position: 'topRight',
             message: 'Se agregro el producto al carrito'
           });
+          this.socket.emit('add-carrito-add', { data: true });
           this.btn_cart = false;
         }
       }

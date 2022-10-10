@@ -4,6 +4,7 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { global } from 'src/app/services/global';
 import { io } from "socket.io-client";
 
+declare var iziToast: any;
 declare var $: any;
 
 @Component({
@@ -82,6 +83,11 @@ export class NavComponent implements OnInit {
       console.log(data);
       this.obtener_carrito_cliente();
     });
+
+    this.socket.on('new-carrito-add', (data) => {
+      console.log(data);
+      this.obtener_carrito_cliente();
+    });
   }
 
   logout() {
@@ -105,9 +111,19 @@ export class NavComponent implements OnInit {
       this.subtotal = this.subtotal + parseInt(element.producto.precio);
     });
   }
+  
   eliminar_item(id: any) {
     this._clienteService.eliminar_carrito_cliente(id, this.token).subscribe(
       response => {
+        iziToast.show({
+          title: 'Info:',
+          titleColor: '#00FF00',
+          messageColor: '#000',
+          backgroundColor: '#efefef',
+          class: 'text-success',
+          position: 'topRight',
+          message: 'Se elimino el producto correctamente'
+        });
         // Realtime
         this.socket.emit('delete-carrito', { data: response.data });
         console.log(response);

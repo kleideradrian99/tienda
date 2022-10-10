@@ -3,6 +3,7 @@ import { ActivatedRoute, provideRoutes } from '@angular/router';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { global } from 'src/app/services/global';
 import { GuestService } from 'src/app/services/guest.service';
+import { io } from "socket.io-client";
 
 declare var tns: any;
 declare var lightGallery: any;
@@ -20,6 +21,9 @@ export class ShowProductoComponent implements OnInit {
   public url: any;
   public productos_rec: Array<any> = [];
   public token;
+  
+  // Socket
+  public socket = io('http://localhost:4201');
 
   //Agregar al carrito
   public carrito_data: any = {
@@ -148,6 +152,7 @@ export class ShowProductoComponent implements OnInit {
                 position: 'topRight',
                 message: 'Se agregro el producto al carrito'
               });
+              this.socket.emit('add-carrito-add', { data: true });
               this.btn_cart = false;
             }
           }
