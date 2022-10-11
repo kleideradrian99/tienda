@@ -17,6 +17,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShowProductoComponent } from './components/productos/show-producto/show-producto.component';
 import { CarritoComponent } from './components/carrito/carrito.component';
+import { DireccionesComponent } from './components/usuario/direcciones/direcciones.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { CarritoComponent } from './components/carrito/carrito.component';
     SiderbarComponent,
     IndexProductoComponent,
     ShowProductoComponent,
-    CarritoComponent
+    CarritoComponent,
+    DireccionesComponent
   ],
   imports: [
     BrowserModule,

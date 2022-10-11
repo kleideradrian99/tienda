@@ -17,4 +17,8 @@ api.delete('/eliminar_cliente_admin/:id', auth.auth, clienteController.eliminar_
 api.get('/obtener_cliente_guest/:id', auth.auth, clienteController.obtener_cliente_guest);
 api.put('/actuaizar_perfil_cliente_guest/:id', auth.auth, clienteController.actuaizar_perfil_cliente_guest);
 
+// DIRECCIONES
+
+api.post('/registro_direccion_cliente', auth.auth, clienteController.registro_direccion_cliente);
+
 module.exports = api;

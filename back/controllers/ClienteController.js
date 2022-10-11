@@ -4,6 +4,7 @@ var Cliente = require('../models/cliente');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../helpers/jwt');
 const { request } = require('express');
+var Direccion = require('../models/direccion');
 
 const registro_cliente = async function (req, res) {
 
@@ -229,6 +230,18 @@ const actuaizar_perfil_cliente_guest = async function (req, res) {
     }
 }
 
+// DIRECCIONES DEL CLIENTE ****************************************************************************************************************
+
+const registro_direccion_cliente = async function (req, res) {
+    if (req.user) {
+        var data = req.body;
+        let reg = await Direccion.create(data);
+        res.status(200).send({ data: reg });
+    } else {
+        res.status(500).send({ message: 'NoAccess' });
+    }
+}
+
 module.exports = {
     registro_cliente,
     login_cliente,
@@ -238,5 +251,6 @@ module.exports = {
     actualizar_cliente_admin,
     eliminar_cliente_admin,
     obtener_cliente_guest,
-    actuaizar_perfil_cliente_guest
+    actuaizar_perfil_cliente_guest,
+    registro_direccion_cliente
 }
