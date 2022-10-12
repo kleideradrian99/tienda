@@ -25,10 +25,10 @@
             <!-- Content -->
             <div class="col-lg-8 ml-auto">
                 <div class="d-flex align-items-center justify-content-between mb-4 pb-1 pb-sm-3">
-                    <h1 class="h2 mb-0">Mis Direcciones</h1>
+                    <h1 class="h2 mb-0">Nueva Direccion</h1>
                 </div>
                 <!-- FORMULARIO -->
-                <form #registroForm="ngForm" (ngSubmit)="registrar(registroForm)">
+                <form class="mb-6" #registroForm="ngForm" (ngSubmit)="registrar(registroForm)">
                     <div class="row">
                         <div class="col-sm-6 form-group">
                             <label for="ac-fn">Destinatario</label>
@@ -57,8 +57,8 @@
                         </div>
                         <div class="col-sm-6 form-group">
                             <label for="ac-fn">País</label>
-                            <select name="pais" required [(ngModel)]="direccion.pais" class="custom-select custom-select-lg"
-                                (change)="select_pais()">
+                            <select name="pais" required [(ngModel)]="direccion.pais"
+                                class="custom-select custom-select-lg" (change)="select_pais()">
                                 <option value="" selected disabled>Seleccionar</option>
                                 <option value="Argentina">Argentina</option>
                                 <option value="Bolivia">Bolivia</option>
@@ -122,6 +122,44 @@
                     </div>
                     <button type="submit" class="btn btn-primary btn-lg">&nbsp;Crear Dirección&nbsp;</button>
                 </form>
+
+                <div class="d-flex align-items-center justify-content-between mb-4 pb-1 pb-sm-3">
+                    <h1 class="h2 mb-0">Mis Direcciones</h1>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <ng-container *ngFor="let item of direcciones">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3 col-sm-4 mb-sm-0 mb-3">
+                                            <h3 class="mb-2 fs-lg">{{item.destinatario}}</h3>
+                                            <span class="d-block mb-3 fs-sm text-muted">{{item.zip}}</span>
+                                            <a class="badge bg-primary" *ngIf="item.principal">Dirección de envió</a>
+                                            <a class="badge bg-warning" style="cursor: pointer;"
+                                                (click)="establecer_principal(item._id)"
+                                                *ngIf="!item.principal">Establecer
+                                                principal</a>
+                                        </div>
+                                        <div class="col">
+                                            <p class="mb-3">
+                                                {{item.direccion}}
+                                            </p>
+                                            <p class="mb-3">
+                                                {{item.pais}} -
+                                                <span *ngIf="item.region">{{item.region}} - </span>
+                                                <span *ngIf="item.provincia">{{item.provincia}} - </span>
+                                                <span *ngIf="item.distrito">{{item.distrito}}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+
+                    </div>
+                </div>
             </div>
         </div>
     </section>

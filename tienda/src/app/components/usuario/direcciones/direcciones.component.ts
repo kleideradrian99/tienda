@@ -23,6 +23,8 @@ export class DireccionesComponent implements OnInit {
     principal: false,
   };
 
+  public direcciones: Array<any> = [];
+
   public regiones: Array<any> = [];
   public provincias: Array<any> = [];
   public distritos: Array<any> = [];
@@ -55,6 +57,15 @@ export class DireccionesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.obtener_direcciones();
+  }
+
+  obtener_direcciones() {
+    this._clienteService.obtener_todas_direcciones_cliente(localStorage.getItem('_id'), this.token).subscribe(
+      response => {
+        this.direcciones = response.data;
+      }
+    );
   }
 
   select_pais() {
@@ -192,5 +203,20 @@ export class DireccionesComponent implements OnInit {
     }
   }
 
-
+  establecer_principal(id: any) {
+    this._clienteService.cambiar_direccion_principal(id, localStorage.getItem('_id'), this.token).subscribe(
+      response => {
+        this.obtener_direcciones();
+        iziToast.show({
+          title: 'Success',
+          titleColor: '#00FF00',
+          messageColor: '#000',
+          backgroundColor: '#EFEFEF',
+          class: 'text-success',
+          position: 'topRight',
+          message: 'Se actualizo la dirección principal'
+        });
+      }
+    );
+  }
 }
