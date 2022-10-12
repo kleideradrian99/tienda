@@ -14,6 +14,7 @@ declare var iziToast: any;
 export class DireccionesComponent implements OnInit {
 
   public token;
+  public load_data = true;
 
   public direccion: any = {
     pais: '',
@@ -64,6 +65,7 @@ export class DireccionesComponent implements OnInit {
     this._clienteService.obtener_todas_direcciones_cliente(localStorage.getItem('_id'), this.token).subscribe(
       response => {
         this.direcciones = response.data;
+        this.load_data = false;
       }
     );
   }
