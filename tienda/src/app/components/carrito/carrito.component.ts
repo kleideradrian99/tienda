@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { global } from 'src/app/services/global';
 import { io } from "socket.io-client";
@@ -7,6 +7,12 @@ import { GuestService } from 'src/app/services/guest.service';
 declare var iziToast: any;
 declare var Cleave: any;
 declare var StickySidebar: any;
+declare var paypal: any;
+
+interface HtmlInputEvent extends Event {
+  target: HTMLInputElement & EventTarget;
+}
+
 
 @Component({
   selector: 'app-carrito',
@@ -14,6 +20,9 @@ declare var StickySidebar: any;
   styleUrls: ['./carrito.component.css']
 })
 export class CarritoComponent implements OnInit {
+
+  // paypal
+  @ViewChild('paypalButton', { static: true }) paypalElement: ElementRef | any;
 
   public idCliente: any;
   public token;
@@ -70,6 +79,32 @@ export class CarritoComponent implements OnInit {
     });
 
     this.get_direccion_principal();
+
+    // PAYPAL
+    paypal.Buttons({
+      style: {
+        layout: 'horizontal'
+      },
+      createOrder: (data: any, actions: any) => {
+
+        return actions.order.create({
+          purchase_units: [{
+            description: 'Nombre del pago',
+            amount: {
+              currency_code: 'USD',
+              value: 999
+            },
+          }]
+        });
+      },
+      onApprove: async (data: any, actions: any) => {
+        const order = await actions.order.capture();
+      },
+      onError: function (err: any) {
+      },
+      onCancel: function (data: any, actions: any) {
+      }
+    }).render(this.paypalElement.nativeElement);
   }
 
   get_direccion_principal() {
