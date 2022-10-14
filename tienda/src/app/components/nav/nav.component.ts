@@ -85,7 +85,7 @@ export class NavComponent implements OnInit {
     });
 
     this.socket.on('new-carrito-add', (data) => {
-      console.log(data);
+      // console.log(data);
       this.obtener_carrito_cliente();
     });
   }
@@ -107,6 +107,7 @@ export class NavComponent implements OnInit {
   }
 
   calcular_carrito() {
+    this.subtotal = 0;
     this.carrito_arr.forEach(element => {
       this.subtotal = this.subtotal + parseInt(element.producto.precio);
     });

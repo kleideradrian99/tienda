@@ -37,6 +37,10 @@ export class CarritoComponent implements OnInit {
 
   public direccion_principal: any = {};
 
+  // Pagos y Detalles de pagos
+  public venta: any = {};
+  public dventa: Array<any> = [];
+
   // Socket
   public socket = io('http://localhost:4201');
 
@@ -45,15 +49,11 @@ export class CarritoComponent implements OnInit {
     private _guestService: GuestService
   ) {
     this.idCliente = localStorage.getItem('_id');
+    this.venta.cliente = this.idCliente;
     this.token = localStorage.getItem('token');
     this.url = global.url;
-    // Obtener Data del carrito
-    this._clienteService.obtener_carrito_cliente(this.idCliente, this.token).subscribe(
-      response => {
-        this.carrito_arr = response.data;
-        this.calcular_carrito();
-      }
-    );
+
+    this.init_data();
 
     this._guestService.get_Envios().subscribe(
       response => {
@@ -99,12 +99,37 @@ export class CarritoComponent implements OnInit {
       },
       onApprove: async (data: any, actions: any) => {
         const order = await actions.order.capture();
+        console.log(order);
+        this.venta.transaccion = order.purchase_units[0].payments.captures[0].id;
+        console.log(this.dventa);
       },
       onError: function (err: any) {
       },
       onCancel: function (data: any, actions: any) {
       }
     }).render(this.paypalElement.nativeElement);
+  }
+
+  init_data() {
+    // Obtener Data del carrito
+    this._clienteService.obtener_carrito_cliente(this.idCliente, this.token).subscribe(
+      response => {
+        this.carrito_arr = response.data;
+
+        this.carrito_arr.forEach(element => {
+          this.dventa.push({
+            producto: element.producto._id,
+            subtotal: element.producto.precio,
+            variedad: element.variedad,
+            cantidad: element.cantidad,
+            cliente: localStorage.getItem('_id'),
+          });
+        });
+
+        this.calcular_carrito();
+        this.calcular_total('Envio Gratis');
+      }
+    );
   }
 
   get_direccion_principal() {
@@ -114,12 +139,14 @@ export class CarritoComponent implements OnInit {
           this.direccion_principal = undefined;
         } else {
           this.direccion_principal = response.data;
+          this.venta.direccion = this.direccion_principal._id;
         }
       }
     );
   }
 
   calcular_carrito() {
+    this.subtotal = 0;
     this.carrito_arr.forEach(element => {
       this.subtotal = this.subtotal + parseInt(element.producto.precio);
     });
@@ -142,17 +169,17 @@ export class CarritoComponent implements OnInit {
         // Realtime
         this.socket.emit('delete-carrito', { data: response.data });
         // Obtener Data del carrito
-        this._clienteService.obtener_carrito_cliente(this.idCliente, this.token).subscribe(
-          response => {
-            this.carrito_arr = response.data;
-            this.calcular_carrito();
-          }
-        );
+        this.init_data();
       }
     );
   }
 
-  calcular_total() {
+  calcular_total(titulo_envio: any) {
     this.total_pagar = parseInt(this.subtotal.toString()) + parseInt(this.precio_envio);
+    this.venta.subtotal = this.total_pagar;
+    this.venta.envio_precio = parseInt(this.precio_envio);
+    this.venta.envio_titulo = titulo_envio;
+
+    console.log(this.venta)
   }
 }
