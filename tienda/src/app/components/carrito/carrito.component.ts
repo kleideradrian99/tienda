@@ -92,16 +92,22 @@ export class CarritoComponent implements OnInit {
             description: 'Nombre del pago',
             amount: {
               currency_code: 'USD',
-              value: 999
+              value: 99
             },
           }]
         });
       },
       onApprove: async (data: any, actions: any) => {
         const order = await actions.order.capture();
-        console.log(order);
+        // console.log(order);
         this.venta.transaccion = order.purchase_units[0].payments.captures[0].id;
-        console.log(this.dventa);
+        // Mandamos los productos al backend
+        this.venta.detalles = this.dventa;
+        this._clienteService.registro_compra_cliente(this.venta, this.token).subscribe(
+          response => {
+            console.log(response);
+          }
+        );
       },
       onError: function (err: any) {
       },
@@ -180,6 +186,6 @@ export class CarritoComponent implements OnInit {
     this.venta.envio_precio = parseInt(this.precio_envio);
     this.venta.envio_titulo = titulo_envio;
 
-    console.log(this.venta)
+    // console.log(this.venta)
   }
 }

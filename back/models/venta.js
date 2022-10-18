@@ -4,16 +4,16 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var VentaSchema = Schema({
-    cliente: { type: Schema.ObjectId, ref: 'cliente', required: false },
-    nventa: { type: String, required: true },
-    subtotal: { type: Number, required: true },
-    envio_titulo: { type: String, required: true },
-    envio_precio: { type: Number, required: true },
-    transaccion: { type: String, required: true },
-    cupon: { type: String, required: true },
-    estado: { type: String, required: true },
-    direccion: { type: Schema.ObjectId, ref: 'direccion', required: true },
-    nota: { type: String, required: true },
+    cliente: { type: Schema.ObjectId, ref: 'cliente', require: false },
+    nventa: { type: String, require: true },
+    subtotal: { type: Number, require: true },
+    envio_titulo: { type: String, require: true },
+    envio_precio: { type: Number, require: true },
+    transaccion: { type: String, require: true },
+    cupon: { type: String, require: true },
+    estado: { type: String, require: true },
+    direccion: { type: Schema.ObjectId, ref: 'direccion', require: true },
+    nota: { type: String, require: true },
     createdAt: { type: Date, default: Date.now, require: true }
 });
 
