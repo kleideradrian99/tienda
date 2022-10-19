@@ -34,12 +34,14 @@ export class CarritoComponent implements OnInit {
 
   public envios: Array<any> = [];
   public precio_envio = "0";
-
   public direccion_principal: any = {};
 
   // Pagos y Detalles de pagos
   public venta: any = {};
   public dventa: Array<any> = [];
+
+  public btn_load = false;
+  public carrito_load = true;
 
   // Socket
   public socket = io('http://localhost:4201');
@@ -121,7 +123,6 @@ export class CarritoComponent implements OnInit {
     this._clienteService.obtener_carrito_cliente(this.idCliente, this.token).subscribe(
       response => {
         this.carrito_arr = response.data;
-
         this.carrito_arr.forEach(element => {
           this.dventa.push({
             producto: element.producto._id,
@@ -131,7 +132,9 @@ export class CarritoComponent implements OnInit {
             cliente: localStorage.getItem('_id'),
           });
         });
-
+        setTimeout(() => {
+          this.carrito_load = false;
+        }, 3000);
         this.calcular_carrito();
         this.calcular_total('Envio Gratis');
       }
@@ -187,5 +190,9 @@ export class CarritoComponent implements OnInit {
     this.venta.envio_titulo = titulo_envio;
 
     // console.log(this.venta)
+  }
+
+  get_pago_tarjet_credito() {
+
   }
 }
