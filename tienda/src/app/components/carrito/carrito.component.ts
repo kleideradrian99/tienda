@@ -109,7 +109,11 @@ export class CarritoComponent implements OnInit {
         this.venta.detalles = this.dventa;
         this._clienteService.registro_compra_cliente(this.venta, this.token).subscribe(
           response => {
-            this._router.navigate(['/']);
+            this._clienteService.enviar_correo_envio_compra(response.venta, this.token).subscribe(
+              reponse => {
+                this._router.navigate(['/']);
+              }
+            );
           }
         );
       },
