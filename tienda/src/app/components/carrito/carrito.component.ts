@@ -43,6 +43,8 @@ export class CarritoComponent implements OnInit {
 
   public btn_load = false;
   public carrito_load = true;
+  public error_cupon = '';
+  public descuento = 0;
 
   // Socket
   public socket = io('http://localhost:4201');
@@ -197,6 +199,37 @@ export class CarritoComponent implements OnInit {
   }
 
   get_pago_tarjet_credito() {
+
+  }
+
+  validar_cupon() {
+    if (this.venta.cupon) {
+      if (this.venta.cupon.toString().length <= 20) {
+        this._clienteService.validar_cupon_cliente(this.venta.cupon, this.token).subscribe(
+          response => {
+            if (response.data != undefined) {
+              this.error_cupon = '';
+
+              // Validar el tipo de descuento
+              if (response.data.tipo == 'Valor Fijo') {
+                this.descuento = response.data.valor;
+                this.total_pagar = this.total_pagar - this.descuento;
+              } else if (response.data.tipo == 'Porcentaje') {
+                this.descuento = (this.total_pagar * response.data.valor) / 100;
+                this.total_pagar = this.total_pagar - this.descuento;
+              }
+
+            } else {
+              this.error_cupon = "El cupon no se pudo canjear"
+            }
+          }
+        );
+      } else {
+        this.error_cupon = "El cupon debe ser menor de 20 caracteres"
+      }
+    } else {
+      this.error_cupon = "El cupon no es valido"
+    }
 
   }
 }

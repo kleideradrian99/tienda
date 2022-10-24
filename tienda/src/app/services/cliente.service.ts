@@ -119,4 +119,9 @@ export class ClienteService {
     return this._http.get(this.url + 'enviar_correo_envio_compra/' + id, { headers: headers });
   }
 
+  validar_cupon_cliente(cupon: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-type': 'application/json', 'Authorization': token });
+    return this._http.get(this.url + 'validar_cupon_cliente/' + cupon, { headers: headers });
+  }
+
 }
