@@ -16,6 +16,9 @@ import { UpdateCuponComponent } from "./components/cupones/update-cupon/update-c
 import { ConfigComponent } from "./components/config/config.component";
 import { VariedadProducoComponent } from "./components/productos/variedad-produco/variedad-produco.component";
 import { GaleriaProducoComponent } from "./components/productos/galeria-produco/galeria-produco.component";
+import { IndexDescuentoComponent } from "./components/descuento/index-descuento/index-descuento.component";
+import { CreateDescuentoComponent } from "./components/descuento/create-descuento/create-descuento.component";
+import { EditDescuentoComponent } from "./components/descuento/edit-descuento/edit-descuento.component";
 
 const appRoute: Routes = [
     { path: '', redirectTo: 'Inicio', pathMatch: 'full' },
@@ -36,6 +39,10 @@ const appRoute: Routes = [
             { path: 'cupones/registro', component: CreateCuponComponent, canActivate: [AdminGuard] },
             { path: 'cupones', component: IndexCuponComponent, canActivate: [AdminGuard] },
             { path: 'cupones/:id', component: UpdateCuponComponent, canActivate: [AdminGuard] },
+
+            { path: 'descuentos', component: IndexDescuentoComponent, canActivate: [AdminGuard] },
+            { path: 'descuentos/registro', component: CreateDescuentoComponent, canActivate: [AdminGuard] },
+            { path: 'descuentos/:id', component: EditDescuentoComponent, canActivate: [AdminGuard] },
 
             { path: 'configuraciones', component: ConfigComponent, canActivate: [AdminGuard] },
         ]

@@ -23,6 +23,9 @@ import { UpdateCuponComponent } from './components/cupones/update-cupon/update-c
 import { ConfigComponent } from './components/config/config.component';
 import { VariedadProducoComponent } from './components/productos/variedad-produco/variedad-produco.component';
 import { GaleriaProducoComponent } from './components/productos/galeria-produco/galeria-produco.component';
+import { CreateDescuentoComponent } from './components/descuento/create-descuento/create-descuento.component';
+import { EditDescuentoComponent } from './components/descuento/edit-descuento/edit-descuento.component';
+import { IndexDescuentoComponent } from './components/descuento/index-descuento/index-descuento.component';
 
 
 
@@ -45,6 +48,9 @@ import { GaleriaProducoComponent } from './components/productos/galeria-produco/
     ConfigComponent,
     VariedadProducoComponent,
     GaleriaProducoComponent,
+    CreateDescuentoComponent,
+    EditDescuentoComponent,
+    IndexDescuentoComponent,
   ],
   imports: [
     BrowserModule,
