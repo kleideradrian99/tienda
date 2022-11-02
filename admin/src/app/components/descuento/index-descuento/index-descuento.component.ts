@@ -40,6 +40,25 @@ export class IndexDescuentoComponent implements OnInit {
       response => {
         this.descuentos = response.data;
 
+        this.descuentos.forEach(element => {
+          var tt_inicio = Date.parse(element.fecha_inicio + "T00:00:00") / 1000;
+          var tt_fin = Date.parse(element.fecha_fin + "T00:00:00") / 1000;
+
+          var today = Date.parse(new Date().toString()) / 1000;
+
+          if (today > tt_inicio) {
+            element.estado = 'Expirado';
+          }
+
+          if (today < tt_inicio) {
+            element.estado = 'Proximamente';
+          }
+
+          if (today >= tt_inicio && today <= tt_fin) {
+            element.estado = 'En progreso';
+          }
+        });
+
         this.load_data = false;
       }, error => {
         console.log(error);
