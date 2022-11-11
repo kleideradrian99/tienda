@@ -35,4 +35,29 @@ export class DescuentoService {
 
     return this._http.post(this.url + 'registro_descuento_admin/', fb, { headers: headers });
   }
+
+  obtener_descuento_admin(id: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-type': 'application/json', 'Authorization': token });
+    return this._http.get(this.url + 'obtener_descuento_admin/' + id, { headers: headers });
+  }
+
+  actualizar_descuento_admin(token: any, data: any, id: any): Observable<any> {
+    if (data.banner) {
+      let headers = new HttpHeaders({ 'Authorization': token });
+
+      const fb = new FormData();
+      fb.append('titulo', data.titulo);
+      fb.append('fecha_inicio', data.fecha_inicio);
+      fb.append('fecha_fin', data.fecha_fin);
+      fb.append('descuento', data.descuento);
+      fb.append('banner', data.banner);
+
+      return this._http.put(this.url + 'actualizar_descuento_admin/' + id, fb, { headers: headers });
+    } else {
+      let headers = new HttpHeaders({ 'Content-type': 'application/json', 'Authorization': token });
+      return this._http.put(this.url + 'actualizar_descuento_admin/' + id, data, { headers: headers });
+
+    }
+  }
+
 }

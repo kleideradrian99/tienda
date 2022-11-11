@@ -45,26 +45,37 @@ export class CreateDescuentoComponent implements OnInit {
       } else {
         // console.log(this.producto);
         // console.log(this.file);
-        this.load_btn = true;
-        this._descuentoService.registro_descuento_admin(this.token, this.descuento, this.file).subscribe(
-          response => {
-            iziToast.show({
-              title: 'Success',
-              titleColor: '#141514',
-              messageColor: '#000',
-              backgroundColor: '#efefef',
-              class: 'text-success',
-              position: 'topRight',
-              message: 'Se registro Correctamente el nuevo descuento'
-            });
-            this._router.navigate(['/panel/descuentos']);
-            this.load_btn = false;
+        if (this.descuento.descuento >= 1 && this.descuento.descuento <= 100) {
+          this.load_btn = true;
+          this._descuentoService.registro_descuento_admin(this.token, this.descuento, this.file).subscribe(
+            response => {
+              iziToast.show({
+                title: 'Success',
+                titleColor: '#141514',
+                messageColor: '#000',
+                backgroundColor: '#efefef',
+                class: 'text-success',
+                position: 'topRight',
+                message: 'Se registro Correctamente el nuevo descuento'
+              });
+              this._router.navigate(['/panel/descuentos']);
+              this.load_btn = false;
 
-          }, error => {
-            console.log(error);
-            this.load_btn = false;
-          }
-        )
+            }, error => {
+              console.log(error);
+              this.load_btn = false;
+            }
+          )
+        } else {
+          iziToast.show({
+            title: 'ERROR',
+            titleColor: '#FF0000',
+            messageColor: '#000',
+            class: 'text-danger',
+            position: 'topRight',
+            message: 'El descuento debe estar entre 1% y 100%'
+          });
+        }
       }
 
     } else {
