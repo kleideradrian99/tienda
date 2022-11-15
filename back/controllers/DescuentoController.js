@@ -31,7 +31,7 @@ const listar_descuentos_admin = async function (req, res) {
         if (req.user.role = "admin") {
 
             var filtro = req.params['filtro'];
-            let reg = await Descuento.find({ titulo: new RegExp(filtro, 'i') }).sort({ createdAt: -1 }); 
+            let reg = await Descuento.find({ titulo: new RegExp(filtro, 'i') }).sort({ createdAt: -1 });
 
             res.status(200).send({ data: reg });
 
@@ -143,6 +143,27 @@ const eliminar_descuento_admin = async function (req, res) {
     }
 }
 
+const obtener_descuento_activo = async function (req, res) {
+    let descuentos = await Descuento.find().sort({ createdAt: -1 });
+    var arr_descuentos = [];
+    var toDay = Date.parse(new Date().toString()) / 1000;
+
+    descuentos.forEach(element => {
+        var tt_inicio = Date.parse(element.fecha_inicio + "T00:00:00") / 1000;
+        var tt_fin = Date.parse(element.fecha_fin + "T23:59:59") / 1000;
+
+        if (toDay >= tt_inicio && toDay <= tt_fin) {
+            arr_descuentos.push(element);
+        }
+    });
+
+    if (arr_descuentos.length >= 1) {
+        res.status(200).send({ data: arr_descuentos });
+    } else {
+        res.status(200).send({ data: undefined });
+    }
+}
+
 
 module.exports = {
     registro_descuento_admin,
@@ -150,5 +171,6 @@ module.exports = {
     obtener_banner_descuento,
     obtener_descuento_admin,
     actualizar_descuento_admin,
-    eliminar_descuento_admin
+    eliminar_descuento_admin,
+    obtener_descuento_activo
 }

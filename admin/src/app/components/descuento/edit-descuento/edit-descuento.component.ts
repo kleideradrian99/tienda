@@ -62,8 +62,8 @@ export class EditDescuentoComponent implements OnInit {
           data.banner = this.file;
         }
         data.titulo = this.descuento.titulo;
-        data.stock = this.descuento.fecha_inicio;
-        data.precio = this.descuento.fecha_fin;
+        data.fecha_inicio = this.descuento.fecha_inicio;
+        data.fecha_fin = this.descuento.fecha_fin;
         data.descuento = this.descuento.descuento;
 
         this.load_btn = true;
@@ -74,7 +74,7 @@ export class EditDescuentoComponent implements OnInit {
               title: 'Success',
               titleColor: '#141514',
               messageColor: '#000',
-              backgroundColor: '#B2FFB8',
+              backgroundColor: '#EFEFEF',
               class: 'text-success',
               position: 'topRight',
               message: 'Se registro Correctamente el descuento.'

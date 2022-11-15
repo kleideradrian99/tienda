@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { global } from 'src/app/services/global'
 import { io } from "socket.io-client";
+import { GuestService } from 'src/app/services/guest.service';
 
 declare var noUiSlider: any;
 declare var $: any;
@@ -30,6 +31,9 @@ export class IndexProductoComponent implements OnInit {
   // Socket
   public socket = io('http://localhost:4201');
 
+  // Descuento Activo
+  public descuento_activo: any = undefined;
+
   //Agregar al carrito
   public carrito_data: any = {
     variedad: '',
@@ -46,7 +50,8 @@ export class IndexProductoComponent implements OnInit {
 
   constructor(
     private _clienteService: ClienteService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _guestService: GuestService
   ) {
     this.url = global.url;
     this.token = localStorage.getItem('token');
@@ -106,6 +111,17 @@ export class IndexProductoComponent implements OnInit {
       $('.cs-range-slider-value-max').val(values[1]);
     });
     $('.noUi-tooltip').css('font-size', '11px');
+
+    this._guestService.obtener_descuento_activo().subscribe(
+      response => {
+        if (response.data != undefined) {
+          this.descuento_activo = response.data[0];
+          console.log(this.descuento_activo.descuento)
+        } else {
+          this.descuento_activo = undefined;
+        }
+      }
+    );
   }
 
 

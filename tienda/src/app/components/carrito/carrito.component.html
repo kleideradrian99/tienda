@@ -73,12 +73,22 @@
                                                 {{item.variedad}}</li>
                                         </ul>
                                     </div>
-                                    <div class="d-flex pr-sm-3">
+
+                                    <div class="d-flex pr-sm-3" *ngIf="descuento_activo != undefined">
                                         <input type="number" class="form-control form-control-sm bg-light mr-3"
                                             style="width: 4.5rem;" readonly value="{{item.cantidad}}">
                                         <div class="text-nowrap pt-2">
-                                            <!-- <strong class="text-danger">$15.00</strong> -->
-                                            <span style="font-size: 1rem !important"
+                                            <strong class="text-danger mr-2">${{item.producto.precio | descuento:
+                                                descuento_activo.descuento}}</strong>
+                                            <span class="font-size-xs text-muted">${{item.producto.precio}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex pr-sm-3" *ngIf="descuento_activo == undefined">
+                                        <input type="number" class="form-control form-control-sm bg-light mr-3"
+                                            style="width: 4.5rem;" readonly value="{{item.cantidad}}">
+                                        <div class="text-nowrap pt-2">
+                                            <span style="font-size: 1.2rem !important;"
                                                 class="font-size-xs text-muted">${{item.producto.precio}}</span>
                                         </div>
                                     </div>

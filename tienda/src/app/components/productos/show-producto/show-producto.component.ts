@@ -21,7 +21,8 @@ export class ShowProductoComponent implements OnInit {
   public url: any;
   public productos_rec: Array<any> = [];
   public token;
-  
+  public descuento_activo: any = undefined;
+
   // Socket
   public socket = io('http://localhost:4201');
 
@@ -116,6 +117,16 @@ export class ShowProductoComponent implements OnInit {
         }
       });
     }, 500)
+
+    this._serviceGuest.obtener_descuento_activo().subscribe(
+      response => {
+        if (response.data != undefined) {
+          this.descuento_activo = response.data[0];
+        } else {
+          this.descuento_activo = undefined;
+        }
+      }
+    );
   }
 
   // Agregar al carrito

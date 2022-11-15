@@ -67,6 +67,36 @@
                             <span class="badge badge-success align-middle mt-n1 ml-2 px-2 py-1 font-size-xs">0</span>
                         </a>
                     </li>
+
+
+                    <!-- New Carrito -->
+                    <!-- <div class="preloader">
+                        <svg class="cart" role="img" aria-label="Shopping cart line animation" viewBox="0 0 128 128"
+                            width="10px" height="10px" xmlns="http://www.w3.org/2000/svg">
+                            <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="8">
+                                <g class="cart__track" stroke="hsla(0,10%,10%,0.1)">
+                                    <polyline points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80" />
+                                    <circle cx="43" cy="111" r="13" />
+                                    <circle cx="102" cy="111" r="13" />
+                                </g>
+                                <g class="cart__lines" stroke="currentColor">
+                                    <polyline class="cart__top" points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80"
+                                        stroke-dasharray="338 338" stroke-dashoffset="-338" />
+                                    <g class="cart__wheel1" transform="rotate(-90,43,111)">
+                                        <circle class="cart__wheel-stroke" cx="43" cy="111" r="13"
+                                            stroke-dasharray="81.68 81.68" stroke-dashoffset="81.68" />
+                                    </g>
+                                    <g class="cart__wheel2" transform="rotate(90,102,111)">
+                                        <circle class="cart__wheel-stroke" cx="102" cy="111" r="13"
+                                            stroke-dasharray="81.68 81.68" stroke-dashoffset="81.68" />
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </div> -->
+
+                    <!-- FIN NEW CARRITO -->
+
                     <li class="divider-vertical mb-0 d-lg-none d-block"></li>
                     <li class="nav-item mb-0">
                         <button class="navbar-toggler mt-n1 mr-n3" type="button" data-toggle="collapse"
@@ -225,8 +255,11 @@
                                 style="width: 4.5rem;" readonly value="{{item.cantidad}}">
                             <div class="text-nowrap">
                                 <!-- <strong class="text-danger"></strong> -->
-                                <span style="font-size: 1rem !important"
-                                    class="font-size-xs text-muted">${{item.producto.precio}}</span>
+                                <span style="font-size: 1rem !important" class="font-size-xs text-muted"
+                                    *ngIf="descuento_activo == undefined">${{item.producto.precio}}</span>
+                                <span style="font-size: 1rem !important" class="font-size-xs text-muted"
+                                    *ngIf="descuento_activo != undefined">${{item.producto.precio | descuento:
+                                    descuento_activo.descuento}}</span>
                             </div>
                         </div>
                         <button class="btn btn-link btn-sm text-decoration-none px-0 pb-0">
