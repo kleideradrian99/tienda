@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { global } from 'src/app/services/global';
+import { GuestService } from 'src/app/services/guest.service';
 
 declare var tns: any;
+
 
 @Component({
   selector: 'app-inicio',
@@ -9,9 +12,29 @@ declare var tns: any;
 })
 export class InicioComponent implements OnInit {
 
-  constructor() { }
+  // Descuento Activo
+  public descuento_activo: any = undefined;
+  public url: any;
+
+  constructor(
+    private _guestService: GuestService
+  ) {
+    this.url = global.url;
+  }
 
   ngOnInit(): void {
+
+    this._guestService.obtener_descuento_activo().subscribe(
+      response => {
+        if (response.data != undefined) {
+          this.descuento_activo = response.data[0];
+          console.log(this.descuento_activo.descuento)
+        } else {
+          this.descuento_activo = undefined;
+        }
+      }
+    );
+
     setTimeout(() => {
       tns({
         container: '.cs-carousel-inner',
