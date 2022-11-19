@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ClienteService } from 'src/app/services/cliente.service';
 import { global } from 'src/app/services/global';
 import { GuestService } from 'src/app/services/guest.service';
 
@@ -15,11 +16,55 @@ export class InicioComponent implements OnInit {
   // Descuento Activo
   public descuento_activo: any = undefined;
   public url: any;
+  public new_productos: Array<any> = [];
+  public mas_vendido: Array<any> = [];
+  public categorias: Array<any> = [];
 
   constructor(
-    private _guestService: GuestService
+    private _guestService: GuestService,
+    private _clienteService: ClienteService,
   ) {
     this.url = global.url;
+    //Categorias
+    this._clienteService.obtener_config_public().subscribe(
+      response => {
+        response.data.categorias.forEach((element: any) => {
+          if (element.titulo == "Smartphones") {
+            this.categorias.push({
+              titulo: element.titulo,
+              portada: 'assets/img/ecommerce/home/categories/04.jpg'
+            });
+          } else if (element.titulo == "Headphones") {
+            this.categorias.push({
+              titulo: element.titulo,
+              portada: 'assets/img/ecommerce/home/categories/05.jpg'
+            });
+          } else if (element.titulo == "Oficina") {
+            this.categorias.push({
+              titulo: element.titulo,
+              portada: 'assets/img/ecommerce/home/categories/07.jpg'
+            });
+          } else if (element.titulo == "Moda") {
+            this.categorias.push({
+              titulo: element.titulo,
+              portada: 'assets/img/ecommerce/home/categories/09.jpg'
+            });
+          } else if (element.titulo == "Alimentos") {
+            this.categorias.push({
+              titulo: element.titulo,
+              portada: 'assets/img/ecommerce/home/categories/08.jpg'
+            });
+          } else if (element.titulo == "Hogar") {
+            this.categorias.push({
+              titulo: element.titulo,
+              portada: 'assets/img/ecommerce/home/categories/03.jpg'
+            });
+          }
+        });
+
+        console.log(this.categorias);
+      }
+    )
   }
 
   ngOnInit(): void {
@@ -28,10 +73,21 @@ export class InicioComponent implements OnInit {
       response => {
         if (response.data != undefined) {
           this.descuento_activo = response.data[0];
-          console.log(this.descuento_activo.descuento)
         } else {
           this.descuento_activo = undefined;
         }
+      }
+    );
+
+    this._guestService.listar_productos_nuevos_publico().subscribe(
+      response => {
+        this.new_productos = response.data;
+      }
+    );
+
+    this._guestService.listar_productos_masvendido_publico().subscribe(
+      response => {
+        this.mas_vendido = response.data;
       }
     );
 
