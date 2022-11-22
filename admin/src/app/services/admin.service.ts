@@ -91,4 +91,13 @@ export class AdminService {
     return this._http.get(this.url + 'obtener_config_public', { headers: headers });
   }
 
+  obtener_mensajes_admin(token: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-type': 'application/json', 'Authorization': token });
+    return this._http.get(this.url + 'obtener_mensajes_admin', { headers: headers });
+  }
+
+  cambiar_estado_mensaje(id: any, data: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-type': 'application/json', 'Authorization': token });
+    return this._http.put(this.url + 'cambiar_estado_mensaje/' + id, data, { headers: headers });
+  }
 }

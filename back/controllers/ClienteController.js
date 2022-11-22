@@ -1,6 +1,7 @@
 'use strict'
 
 var Cliente = require('../models/cliente');
+var Contacto = require('../models/contacto');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../helpers/jwt');
 const { request } = require('express');
@@ -297,6 +298,17 @@ const obtener_direccion_principal = async function (req, res) {
     }
 }
 
+
+// CONTACTO *******************************************************************************************************************
+
+const enviar_mensaje_contacto = async function (req, res) {
+    let data = req.body;
+
+    data.estado = 'Abierto';
+    let reg = await Contacto.create(data);
+    res.status(200).send({ data: reg });
+}
+
 module.exports = {
     registro_cliente,
     login_cliente,
@@ -310,5 +322,6 @@ module.exports = {
     registro_direccion_cliente,
     obtener_todas_direcciones_cliente,
     cambiar_direccion_principal,
-    obtener_direccion_principal
+    obtener_direccion_principal,
+    enviar_mensaje_contacto
 }

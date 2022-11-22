@@ -24,4 +24,7 @@ api.get('/obtener_todas_direcciones_cliente/:id', auth.auth, clienteController.o
 api.put('/cambiar_direccion_principal/:id/:cliente', auth.auth, clienteController.cambiar_direccion_principal);
 api.get('/obtener_direccion_principal/:id', auth.auth, clienteController.obtener_direccion_principal);
 
+// CONTACTO
+api.post('/enviar_mensaje_contacto', clienteController.enviar_mensaje_contacto);
+
 module.exports = api;
