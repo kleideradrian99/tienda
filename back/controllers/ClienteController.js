@@ -300,6 +300,8 @@ const obtener_direccion_principal = async function (req, res) {
     }
 }
 
+
+// ORDENES 
 const obtener_ordenes_cliente = async function (req, res) {
     if (req.user) {
         var id = req.params['id'];
@@ -310,6 +312,25 @@ const obtener_ordenes_cliente = async function (req, res) {
         } else if (reg.length == 0) {
             res.status(200).send({ data: undefined });
         }
+
+
+    } else {
+        res.status(500).send({ message: 'NoAccess' });
+    }
+}
+
+const obtener_detalles_ordenes_cliente = async function (req, res) {
+    if (req.user) {
+        var id = req.params['id'];
+        try {
+            let venta = await Venta.findById({ _id: id }).populate('direccion');
+            let detalles = await Dventa.find({ venta: id }).populate('producto');
+
+            res.status(200).send({ data: venta, detalles: detalles });
+        } catch (error) {
+            res.status(200).send({ data: undefined });
+        }
+
 
 
     } else {
@@ -342,5 +363,6 @@ module.exports = {
     cambiar_direccion_principal,
     obtener_direccion_principal,
     enviar_mensaje_contacto,
-    obtener_ordenes_cliente
+    obtener_ordenes_cliente,
+    obtener_detalles_ordenes_cliente
 }

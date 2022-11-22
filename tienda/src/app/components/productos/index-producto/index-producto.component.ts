@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ClienteService } from 'src/app/services/cliente.service';
-import { global } from 'src/app/services/global'
+import { global } from 'src/app/services/global';
 import { io } from "socket.io-client";
 import { GuestService } from 'src/app/services/guest.service';
 

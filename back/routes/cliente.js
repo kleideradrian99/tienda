@@ -28,6 +28,7 @@ api.get('/obtener_direccion_principal/:id', auth.auth, clienteController.obtener
 api.post('/enviar_mensaje_contacto', clienteController.enviar_mensaje_contacto);
 
 // ORDENES
-api.get('/obtener_ordenes_cliente/:id',auth.auth, clienteController.obtener_ordenes_cliente);
+api.get('/obtener_ordenes_cliente/:id', auth.auth, clienteController.obtener_ordenes_cliente);
+api.get('/obtener_detalles_ordenes_cliente/:id', auth.auth, clienteController.obtener_detalles_ordenes_cliente);
 
 module.exports = api;
