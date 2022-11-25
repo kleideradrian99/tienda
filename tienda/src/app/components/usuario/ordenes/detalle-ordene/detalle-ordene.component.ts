@@ -27,8 +27,7 @@ export class DetalleOrdeneComponent implements OnInit {
     this._route.params.subscribe(
       params => {
         this.id = params['id'];
-
-        _clienteService.obtener_detalles_ordenes_cliente(this.id, this.token).subscribe(
+        this._clienteService.obtener_detalles_ordenes_cliente(this.id, this.token).subscribe(
           response => {
             if (response.data != undefined) {
               this.orden = response.data;

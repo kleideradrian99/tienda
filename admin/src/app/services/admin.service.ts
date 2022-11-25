@@ -105,4 +105,5 @@ export class AdminService {
     let headers = new HttpHeaders({ 'Content-type': 'application/json', 'Authorization': token });
     return this._http.get(this.url + 'obtener_ventas_admin/' + desde + '/' + hasta, { headers: headers });
   }
+
 }

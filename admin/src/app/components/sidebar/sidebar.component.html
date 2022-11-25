@@ -18,12 +18,13 @@
     </ul>
 </header>
 
-<aside class="cs-offcanvas cs-offcanvas-expand bg-dark" id="componentsNav">
+<aside class="cs-offcanvas cs-offcanvas-expand bg-dark"
+    style="width: 20% !important;background-color: #000000 !important;" id="componentsNav">
     <div class="cs-offcanvas-cap d-none d-lg-block py-4">
-        <a class="navbar-brand py-2" href="dev-setup.html">
-            <img src="assets/img/components/logo/logo-white.svg" alt="Createx" width="130">
+        <a class="navbar-brand py-2" [routerLink]="['/Inicio']">
+            <img src="assets/img/logo_prin.png" alt="Createx" width="230">
         </a>
-        <span class="badge badge-warning">Docs</span>
+        <!-- <span class="badge badge-warning">Producción</span> -->
     </div>
     <div class="cs-offcanvas-cap d-flex d-lg-none">
         <div class="d-flex align-items-center mt-1">
@@ -39,8 +40,8 @@
         <a class="btn btn-success btn-block mt-0 px-4" href="../components/typography.html"><i
                 class="cxi-layouts mt-n1 mr-2"></i>Components</a>
     </div>
-    <div class="cs-offcanvas-body px-0 pt-4 pb-grid-gutter" data-simplebar data-simplebar-inverse>
-        <h6 class="font-size-lg text-light px-4 mt-2 mb-3">Contents</h6>
+    <div class="cs-offcanvas-body px-0 pb-grid-gutter" data-simplebar data-simplebar-inverse>
+        <h6 class="font-size-lg text-light px-4 mt-2 mb-3">Mb Latina</h6>
         <hr class="hr-gradient hr-light mb-2 opacity-25">
         <nav class="nav nav-light">
             <a class="nav-link px-4" [routerLink]="['/Inicio']" routerLinkActive="active">Inicio</a>
@@ -50,7 +51,8 @@
             <a class="nav-link px-4" [routerLink]="['/panel/descuentos']" routerLinkActive="active">Discounts</a>
             <a class="nav-link px-4" [routerLink]="['/panel/contactos']" routerLinkActive="active">Messages</a>
             <a class="nav-link px-4" [routerLink]="['/panel/ventas']" routerLinkActive="active">Ventas</a>
-            <a class="nav-link px-4" [routerLink]="['/panel/configuraciones']" routerLinkActive="active">Configuraciones</a>
+            <a class="nav-link px-4" [routerLink]="['/panel/configuraciones']"
+                routerLinkActive="active">Configuraciones</a>
         </nav>
     </div>
 </aside>
