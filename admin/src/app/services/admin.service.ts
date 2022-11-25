@@ -100,4 +100,9 @@ export class AdminService {
     let headers = new HttpHeaders({ 'Content-type': 'application/json', 'Authorization': token });
     return this._http.put(this.url + 'cambiar_estado_mensaje/' + id, data, { headers: headers });
   }
+
+  obtener_ventas_admin(desde: any, hasta: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-type': 'application/json', 'Authorization': token });
+    return this._http.get(this.url + 'obtener_ventas_admin/' + desde + '/' + hasta, { headers: headers });
+  }
 }
